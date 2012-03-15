@@ -1,0 +1,104 @@
+\documentclass[12pt,oneside,final]{ucthesis}
+
+% extra package incluts
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage[sc,osf]{mathpazo}
+%\usepackage[nohead]{geometry}
+\usepackage{hyperref}
+
+\hypersetup{
+  colorlinks = true,
+  urlcolor = black,
+  citecolor = blue
+}
+
+% XXX set correctly?
+%\geometry{
+%  body={6.5in, 8.5in},
+%  left=1.0in,
+%  top=0.5in,
+%  bottom=0.75in
+%}
+
+
+% UCSB latex additions
+\usepackage{amsmath}
+%\usepackage{amssymb}
+\usepackage{multirow}
+%\usepackage{amsthm}
+\newtheorem{thm}{Theorem}[chapter]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+
+% Set off captions in smaller font
+%\usepackage[labelfont={bf,up},margin=40pt,textfont={small}]{caption,subfig}
+
+%% Uncomment this next section to make a nice pdf version have pretty internal hyperlinks
+%\usepackage{hyperref}
+% \hypersetup{
+%     bookmarks=true,         % show bookmarks bar?
+%     breaklinks=true,
+%     unicode=false,          
+%     pdftoolbar=true,        % show Acrobat’s toolbar?
+%     pdfmenubar=true,        % show Acrobat’s menu?
+%     pdffitwindow=false,     % window fit to page when opened
+%     pdfstartview={FitH},    % fits the width of the page to the window
+%     pdftitle={Wavelet analysis of stochastic circadian oscillators},    
+%     pdfauthor={Richard harang},     % author
+%     pdfnewwindow=true,      % links in new window
+%     colorlinks=true,        % false: boxed links; true: colored links
+%     linkcolor=red,          % color of internal links
+%     citecolor=green,        % color of links to bibliography
+%     filecolor=magenta,      % color of file links
+%     urlcolor=cyan           % color of external links
+% }
+
+
+\begin{document}
+
+\title{Title of the disseration goes here}
+\author{Shaun C. Walbridge}
+
+\report{Thesis}
+\degree{Master of Arts}
+\degreemonth{September}
+\degreeyear{2012}
+\approvalmonth{September}
+\approvalyear{2012}
+
+\chair{Steven D. Gaines}
+\committeeII{Krzysztof W. Janowicz}
+\committeeIII{Benjamin S. Halpern}
+\nummembers{3}
+\field{Ecology, Evolution and Marine Biology}
+\campus{Santa Barbara}
+
+\maketitle
+
+\begin{frontmatter}
+
+\input{frontmatter}
+	\tableofcontents
+	\listoffigures
+	\listoftables
+\end{frontmatter}
+
+\dsp
+
+% individual chapters
+
+\input{chapter-1}
+\input{chapter-2}
+
+%%%%%%%%%%%%%%%%%%%%%
+
+\part*{\addcontentsline{toc}{part}{Appendices}Appendices}
+\chapter*{}
+\appendix
+\input{appendix}
+\ssp
+% bibliography can be single-spaced for UC thesis format
+%\bibliography{Library}
+%\bibliographystyle{siam}
+\end{document}
