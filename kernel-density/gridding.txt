@@ -1,0 +1,2 @@
+"Grids are appealing because of their isomorphism with a matrix structure. Unfortunately, this simple method to deal with spatial data takes arbitrary decisions on features like shape, size and placement of cells over the surface. Moreover, it is divorced from the spherical model of the Earth and forces distributions to accommodate their extensions to the rectangular pattern of the grid." -- from documentation of the 'creategrid' function in the SyNet R package.
+
