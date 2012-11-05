@@ -1,0 +1,76 @@
+\chapter{Modeling the Ocean's Roads}
+\label{cha:gisci}
+
+%% Cover the AIS collection process, cursory links to the VGI world and transportation planning literature. Some philosophical discussion on the nature of data and models, and how the data we have colors the nature of research questions we can address. Produce a basic typology of ocean going observations [points, trajectories, time frequency, coverage] and the kinds of analysis that are possible based on the spatio-temporal constraints of the observations. The implicit tradeoffs between modeling and reality, the differences between geographically explicit models and abstract models which remove space from the equation.
+
+Focus on the modeling challenges and background with this data. The two main connections to the GIScience research agenda are:
+
+\begin{itemize}
+	\item Transportation geography has synthetic global models of movement for vehicles, trains and planes, this work shows usage patterns of the ocean.
+	\item Volunteered geographic information uses citizens as sensors, as this dataset is entirely volunteered observations, there are linkages with this emerging field of geography.
+\end{itemize}
+
+%% Goodchild note: Tobler's first law is as important as Newton's laws of gravitation -- has real and substaintial effects on the nature of reality and cannot be just waved off or folded into another displine.
+
+GIScience seeks to explain which representations of the world are most appropriate given the research questions or use cases. This use-case driven approach allows multiple models to be derived based on the particular needs of the applications at hand. %% and, this is easy to do with computers.
+
+\section{Observation Model of AIS}
+
+  Because of the volume of data being analyzed, specialized techniques have to be used to process and access the data. As this useful information for the computer science and geography, I'll provide background on the technical framework used.⋅
+% How is AIS data produced?
+	\subesction{AIS Review}
+% what is it, why does it exist, how do we get it, how much, how fast, basic data model
+
+	\subsection{Collecting AIS data}
+
+
+	\subsevtion{Analyzing AIS data}
+
+% Storage and retrieval in a spatial database framework. Here, PostGIS, also FileGDB, what are the primatives?
+
+
+\section{Scales of Analysis}
+
+% Build on the discussion I had with Megan -- what are the different spatial and temporal scales appropriate for analyzing AIS data?
+% + how we model data is dependent on the scientific questions we're trying to address; this data is very nuanced but by carefully evaluating our intent, a few key models emerge.
+
+Producing models from raw observations involves implicit tradeoffs, I discuss how the modeled results produced can be used for different purposes, a basic typology which evaluates the scale and temporal resolution of data needed to address different hypotheses.
+
+% high temporal resolution, local scale:
+%% acoustic soundings, calibrating the signals from ships and whales (TODO: look over Megan's work to get the gist of this)
+%% filtering ships from HF radar observations (cf. http://euler.msi.ucsb.edu/posters/rowg_5_poster.pdf)
+
+% low temporal resolution, regional scale:
+%% chronic noise pollution
+%% fisherman tracking?
+
+% broad scale, low temporal resolution
+%% transportation networks [covered here?]
+%% roads of the ocean [covered here]
+%% piracy prediction [link to Czech AI work]
+
+% data constraints at these different levels of detail? Clearing house, models to reduce the information complexity?
+
+%% The models I've settled on for the kinds of analysis: a kernel based model to understand the distribution of shipping in the near shore (from obs) and in the open ocean (obs + model). Slicing this data up provides so much value we previously didn't have access to, and having all the raw observations is insufficient for the kinds of abstract modeling we want to apply [see disc in part 2 on philosophy]. Residence time, and average speed per cell models, average direction?  NEXT: the jump to the network-based model which allows us to address questions of FLOW unavailable from our less abstract models. Sacrifices fidelity to observations for a model which allows us to understand the system as a whole. Here, we model this in a geographic context, because of its importance for air quality, ship strikes, ship groundings, noise pollution, and ballast water.
+
+\subsection{AIS as 'semi-volunteered' geographic information}
+
+The historical norm of government produced data has given way to data produced by non-specialists, often using low cost consumer hardware. This new data is both unreliable and abundant, and tools to handle it still need to be developed.
+
+Volunteered geographic information uses citizens as sensors, as this dataset is entirely volunteered observations, there are linkages with this emerging field of geography.
+
+I used basic machine learning techniques to filter and validate the observations used in this dataset, to improve the robustness the dataset.
+
+% specifics:
+
+   %% cross-checking sources, data fusion from different streams to get consistency
+
+   %% cross-check results against other known-good data (Equisis used extensively with Carrie; others?)
+
+   %% use GEOGRAPHY to constrain validity -- ships can't be on land (mostly, are exceptions)
+
+   %% use PHYSICS -- filtering based on speed and other attributes pulled out on a per type basis 
+
+   %% ONTOLOGIES; how can I fit the semantic layer on top of this work?
+
+What are the limitations of this approach? How do we account for biases present in the data?

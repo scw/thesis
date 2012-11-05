@@ -1,0 +1,91 @@
+\documentclass[12pt,letterpaper]{article}
+
+\includeonly{%
+  abstract,
+  introduction,
+  methods,
+  results,
+  discussion,
+  conclusions,
+  appendix
+}
+
+\usepackage{graphicx}
+% used for pmatrix
+\usepackage{amsmath}
+\usepackage{array}
+
+\usepackage[sc,osf]{mathpazo}
+\usepackage[T1]{fontenc}
+\usepackage{inconsolata}
+
+% use fancy syntax highlighting provided by an interface to pygments
+\usepackage{minted}
+
+%\usepackage[margin=.75in,nohead,nofoot]{geometry}⋅
+\usepackage[nohead]{geometry}
+\usepackage{hyperref}
+\usepackage[authoryear,round]{natbib}
+
+% named colors, package already included with minted
+\definecolor{DBlue}{rgb}{0.19,0.32,0.50}
+\definecolor{DRed}{rgb}{0.7,0.22,0.21}
+\definecolor{DGreen}{rgb}{0.15,0.41,0.15}
+\definecolor{LGreen}{rgb}{0.01,0.62,0}
+
+\newcommand{\R}{\textsf{R}}
+\newcommand{\Rcmd}[1]{\texttt{#1}}
+
+%\setlength{\parskip}{0.05in}
+\linespread{1.2}
+
+\geometry{
+  body={6.5in, 8.75in},
+  left=1.0in,
+  top=1.0in,
+  bottom=1.0in
+}
+
+\hypersetup{
+  colorlinks = true,
+  urlcolor = black,
+  citecolor = blue
+}
+
+\renewcommand{\theFancyVerbLine}{\sffamily\textcolor[rgb]{0.5,0.5,0.5}{\scriptsize\arabic{FancyVerbLine}}}
+
+% fancy matrix environment which allows vertical bars
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\begin{document}
+\title{\Huge{Assessing ship movements using volunteered geographic information}}
+\author{Shaun Walbridge}
+\maketitle{}
+
+%\tableofcontents{
+%\addcontentsline{toc}{chapter}{Table of contents}
+
+%\include{abstract}
+
+\include{introduction}
+
+\include{methods}
+
+%\include{results}
+
+%\include{discussion}
+
+%\include{conclusions}
+
+
+\include{appendix}
+
+\bibliography{refs/thesis,refs/links,refs/vgi,refs/prospectus,refs/standards}
+%\bibliographystyle{plainnat}
+\bibliographystyle{jss}
+\end{document}
