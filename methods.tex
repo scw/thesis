@@ -89,31 +89,65 @@ Another important point is that while ships provide us some details as to their 
 \begin{table}[htbp]
   \begin{tabular}{rllll} %{\centering\arraybackslash}p{2cm}>{\centering\arraybackslash}p{5cm}>{\centering\arraybackslash}p{9cm}}
     \hline
-    Type & Vessels & fleet size \textit{(est. from ISL)} & fleet covered (pct) & observations (millions) \\
+    Type & Vessels & fleet size \textit{(joined data)} & fleet covered (pct) & observations (millions) \\
     \hline
-    Cargo & 58510 & X & X & 665.45 \\
-    Pleasure & 71388 & X & X & 267.48 \\
-    Support & 23496 & X & X & 298.02 \\
-    Tanker & 19363 & X & X & 264.42 \\
-    Passenger & 8296 & 600 & X & 142.16 \\
-    Fishing & X & X & X & 6.87 \\
-    Other & X & X & X & 4.75 \\
-    High-speed & 2434 & 3000 & 0.81 & 2.52 \\
-    Authority & X & X & X & 1.44 \\
+    Cargo & 58510 & 32970 & X & 665.45 \\
+    Pleasure & 71388 & 57617 & X & 267.48 \\
+    Support & 23496 & 21425 & X & 298.02 \\
+    Tanker & 19363 & 20503 & X & 264.42 \\
+    Passenger & 8296 & 7182 & X & 142.16 \\
+    Fishing & X & 28544 & X & 6.87 \\
+    Other & X & 29077 & X & 4.75 \\
+    High-speed & 2434 & 1178 & 0.81 & 2.52 \\
+    Authority & X & 1308 & X & 1.44 \\
   \end{tabular}
   \caption{Summary of analyzed ship data}
   \label{table:ships-by-type}
 \end{table}
 
-%high-speed: 2434
-%cargo: 58510
-%other: 0
-%fishing: 0
-%passenger: 8296
-%pleasure: 71388
-%support: 23496
-%tanker: 19363
-%authority: 0
+% fleet size from isl numbers:
+% [where are these from? source them]
+% passenger: 600
+% high-speed: 3000
+
+% as listed in maritime economics 3e (2007): (all over 10,000 dwt only):
+% http://books.google.com/books?id=PAi04qzmfucC&pg=PA69&dq=shipping+cargo+fleet&hl=en&sa=X&ei=Ei2YUOTaNs3oiwKhy4D4CA&ved=0CDYQ6AEwAA#v=onepage&q&f=false
+% tankers: 8040
+% bulk carriers: 14756
+% general cargo: 25784
+% specialized cargo: 6978
+% total cargo: 47433
+%   tugs: 11097
+%   dredgers: 1612
+%   cruise: 452
+%   ferries: 3656
+% total non-cargo: 26880
+% total fleet size: 74398
+
+
+
+% classes from joined clean.ships table:
+% [NOTE: these may double count some ships].
+% 'high-speed': 1178
+% 'passenger': 7182
+% 'cargo': 32970
+% 'support': 21425
+% 'authority': 1308
+% 'fishing': 28544
+% 'pleasure': 57617
+% 'tanker': 20503
+% 'other': 29077
+
+% these came from our full obs table, but clearly have issues (such as: no fishing).
+% high-speed: 2434
+% cargo: 58510
+% other: 0
+% fishing: 0
+% passenger: 8296
+% pleasure: 71388
+% support: 23496
+% tanker: 19363
+% authority: 0
 
 \subsection{Data Representations}
 
