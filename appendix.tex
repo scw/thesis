@@ -45,7 +45,27 @@
   \label{table:ais-broadcast-attributes}
 \end{table}
 
-%\section{Source Code}
-%\label{sec:source-code}
+\newpage
 
-%include python code here?
+\section{Source Code}
+\label{sec:source-code}
+
+% include SOME python code here -- our AIS parser, what else?
+% steps: download AIS
+% parse ais
+% insert AIS into DB, formalize
+% download & parse ship databases
+
+\texttt{aiskml.py}:
+\inputminted[linenos,
+             numbersep=5pt,
+             frame=lines,
+             framesep=2mm]{r}{../code/kml/aiskml.py}
+
+\texttt{parsekml.py}:
+\inputminted[linenos,
+             numbersep=5pt,
+             frame=lines,
+             framesep=2mm]{r}{../code/kml/parsekml.py}
+
+

@@ -10,6 +10,12 @@
   appendix
 }
 
+% enable text super- and sub- scripts
+\usepackage{xltxtra}
+\usepackage{caption}
+% let us typeset things inside the captions
+\captionsetup{justification=justified}
+
 \usepackage{graphicx}
 % used for pmatrix
 \usepackage{amsmath}
@@ -26,6 +32,7 @@
 \usepackage[nohead]{geometry}
 \usepackage{hyperref}
 \usepackage[authoryear,round]{natbib}
+%\usepackage[authoryear,square]{natbib}
 
 % named colors, package already included with minted
 \definecolor{DBlue}{rgb}{0.19,0.32,0.50}
@@ -76,11 +83,11 @@
 
 \include{methods}
 
-%\include{results}
+\include{results}
 
-%\include{discussion}
+\include{discussion}
 
-%\include{conclusions}
+\include{conclusions}
 
 
 \include{appendix}
