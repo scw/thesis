@@ -1,13 +1,44 @@
 \section{\textbf{Results}}
-%A concise report of your results. A final report is not a lab log book, so you do not need to include details of every calculation or include every graph.  Most readers get bored if there are too many very similar graphs in a paper. The key requirement is to report all findings that relate directly to your goals and that will be referred to in the discussion.  
+% A concise report of your results. A final report is not a lab log book, so you do not need to include details of every calculation or include every graph.  Most readers get bored if there are too many very similar graphs in a paper. The key requirement is to report all findings that relate directly to your goals and that will be referred to in the discussion.  
 
-%Avoid having the text in the Results section be a simple list of each result or statistical test – integrate, summarize, synthesize, and point out the most important messages you want your readers to take away from the paper.
+% Avoid having the text in the Results section be a simple list of each result or statistical test – integrate, summarize, synthesize, and point out the most important messages you want your readers to take away from the paper.
 
 % What really matters from what we've done?
 
+\subsection{Record Linkage}
 
+% XXX move this table to an appendix? doesn't really help tell the story.
+% table describing # of records linked betwen each source
+% SOURCE: ship-id-model/matches.ods
+\begin{table}[htbp]
+  \begin{tabular}{rrll} %{\centering\arraybackslash}p{2cm}>{\centering\arraybackslash}p{5cm}>{\centering\arraybackslash}p{9cm}}
+    \hline
+    Source $A$ & Source $B$ & matched records & \% possible matched \\
+    \hline
+     DS & FCC &  3481 & 50.35\textsuperscript{1} \\
+     DS & ITU & 41380 & 30.73 \\
+     DS &  VT & 72286 & 53.68 \\
+    FCC & ITU & 27874 & 50.58\textsuperscript{1} \\
+    FCC &  VT &  5282 & 53.23\textsuperscript{1} \\
+     VT & ITU & 54727 & 43.25 \\
+  \end{tabular}
+  \caption{Ship record linkage results summary. \\
+    1. FCC data is US only, \% possible is of US-only data from each source.}
+  \label{table:ships-record-linkage-results-summary}
+\end{table}
+
+
+\subsection{Geographic Validation}
+
+% XXX: how did we improve data quality by using geographic filtering? what does that tell us, and why does it matter?
+
+
+\subsection{Ship results}
 % Include our graphs: each of our ship types, with two sets of plots: ship density, and ship speed.
 
+% XXX for now: stub the graphs we intend to include: maps of ship movement, classified by TYPE as derived from our linked observations.
+
+% XXX: graphs of SHIP SPEED by type, either using kernel estimation or simple histograms depending on the clarity of the data.
 
 
 % XXX: suggestion-- ships by season? just static results here, can do some dynamic stuff later.
