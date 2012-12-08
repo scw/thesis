@@ -10,8 +10,7 @@ GIScience seeks to formalize our understanding of geographic information, and sh
 
 Shipping is a growing use of ocean, transporting \$1.8 trillion dollars of goods annually, %XXX need reference! 
 and providing a \$300 billion dollar maritime industry, representing one of the largest economic users of the ocean. This activity impacts both human health and the environment, such as the \$3 billion Exxon-Valdez spill\footnote{The \$5 billion liability for the spill was so great that a now infamous financial instrument was manufactured to absorb it: the credit default swap.}, but largely the effects of shipping remain out of sight. Documented effects include greenhouse gasses, accounting for five percent of total man-made emissions, and causing 60,000 premature deaths per year \cite{Corbett2007}. Ecologically, vessels cause ship strikes which can change whale demography \citep{Fujiwara2001}, % XXX better refs? 
- invasive species leading to widespread economic and biological losses, groundings with a host of direct effects like oil spills and habitat destruction, and noise pollution, leading to mortality events. Other ecological and human impacts are likely to exist, but shipping remains a poorly understood use of the ocean \citep{Davenport2006}. As we try to understand the health of the ocean \citep{Halpern2012}, we need data % XXX ELABORATE THIS POINT
- which is an acute challenge in the ocean \cite{Wright1997}.
+ invasive species leading to widespread economic and biological losses, groundings with a host of direct effects like oil spills and habitat destruction, and noise pollution, leading to mortality events. Other ecological and human impacts are likely to exist, but shipping remains a poorly understood use of the ocean \citep{Davenport2006}. As we try to understand the health of the ocean \citep{Halpern2012}, we need detailed data which is an acute challenge in the ocean \cite{Wright1997}. This data is necessary to inform decision-making, such as marine spatial planning, but also is important to minimize the regulatory burden of actions: by managing shipping as a complex system, efficiency can be tied to improved environmental conditions.
 
 %   + invasive species via ballast water 
 %   + ship strikes
@@ -24,10 +23,10 @@ and providing a \$300 billion dollar maritime industry, representing one of the 
 
 % XXX what are the economic uses mentioned in the OHI paper? put this in context.
 Another major direct economic user of the ocean is fishing, where our understanding derives from an intensive effort to study its effects. % XXX citation for this? its clear from spending, but quantify it.
-In fishing, many systems are closely regulated, % XXX cite? Ask Steve?
- due to frequent tragedy of the commons occurrences as unmanaged fish stocks collapse. % XXX uncited assumption, clearly disagreement in the Worm / Jackson / Halpern vs. Hilborn camps, just say what we know here.
+In fishing, many fisheries are now managed, \cite{worm2009rebuilding} in part due to frequent tragedy of the commons occurrences as unmanaged fish stocks have collapsed \cite{costello2012status}. % clearly disagreement in the Worm / Jackson / Halpern vs. Hilborn camps, use their joint papers as an end-run around this.
 
-  Shipping is regulated within the United Nations by the International Maritime Organization (IMO), which enforces rules and standards on the shipping industry. However, the transnational nature of the industry has led to low enforcement, and a regulatory framework which often lags problems by decades. % XXX have to cite both of these statements if this is gonna stick. INSTEAD: say that they are a CONSENSUS based organization which requires radification of many international bodies, by its nature a time consuming process. XXX THIS PAPER HAS SOME DETAILS: \cite{Cogan2009} 
+  Shipping is regulated within the United Nations by the International Maritime Organization (IMO), which enforces rules and standards on the shipping industry. However, the transnational nature of the industry has led to low enforcement, and a regulatory framework which often lags problems, as is common in consensus based international bodies \cite{cogan2009representation}. % XXX have to cite both of these statements if this is gonna stick. INSTEAD: say that they are a CONSENSUS based organization which requires ratification of many international bodies, by its nature a time consuming process. 
+  For example, while acknowledging \cite{imo2009} 20\% reductions in greenhouse gasses are possible in this decade with no additional costs to operators, it hasn't mandated changes.  In light of the weak regulatory environment, alternatives, such as coupling ship insurance rates to ship movement and practices, may be preferable.
  % an example article on IMO problems: http://articles.cnn.com/2012-07-04/world/world_europe_costa-concordia_1_concordia-disaster-cruise-industry-cruise-ship-disaster/3?_s=PM:EUROPE
  % http://ban.org/ban_news/2006/060316_imo_treaty.html
  % http://www.sourcewatch.org/index.php?title=International_Maritime_Organization#Criticisms_of_the_IMO
@@ -35,18 +34,26 @@ In fishing, many systems are closely regulated, % XXX cite? Ask Steve?
 %   + other parts of the ocean environment coming into regulation, particularly fishing
 %   + Regulation of shipping rudimentary
 %    * wild west in terms of control; do regulate emissions in specific places but international agreements minimal (what's IMO got on the table)
-%    * part of the problem is that shipping is extremely international, moreso than fishing
+%    * part of the problem is that shipping is extremely international, more so than fishing
 %    * primary regulation is at ports, otherwise just GPS units and a hope that no one crashes
 
 % FUNDAMENTALLY, doing synthesis on the shipping, with a set of simple rules to validate observations.
 
-\subsection{Transportation networks data}
+\subsection{Transportation networks}
 
-Constrained transportation networks, such as road and rail, form the basis of transportation geography \cite{Rodrigue2009}. Unlike these networks, shipping exists in-between a fully constrained network% XXX DEFINE
- and two dimensional random walks,% XXX DEFINE
-  as vessels must transport goods and passengers to specific locations (primarily ports) but are free in choosing movement between destinations. Air traffic is most similar, but strong regulation has led to predetermined flight paths, with deviations limited to emergencies or extreme weather. % XXX need a ref here. how does the FAA and the relevant international body regulate movement?
- Because of inherent risks in air transportation, detailed, well-vetted data on flight paths is provided by government agencies, % XXX gotta cite this as well
-simplifying modeling. Ship movements have no equivalent top-down data collection effort, and while organizations such as the US Coast Guard have made efforts, little exists. Most data is provided via private contracts, through organisations such as Lloyd's of London, who have been collecting data on shipping since 1774 \citep{Lloyd'sRegister-FairplayLtd.2010}. Limited public data is available on the shipping trade, despite being a key component of transportation, identified by the FGDC \citep{FGDC} as of critical importance to the nation's spatial data infrastructure \citep{CurrierInPress}.
+Transportation networks with geographically fixed edges and nodes, such as road and rail, form the basis of transportation geography \cite{Rodrigue2009}. Unlike these networks, shipping exists in-between the extremes of a fixed network % XXX DEFINE, Newman 2010?
+ and two dimensional random walks, % XXX DEFINE
+  as vessels must transport both goods and passengers to specific locations (primarily ports) but are free in choosing movement between destinations, except in near shore areas regulated by shipping lanes. Air transportation is most similar, but strong regulation has led to predetermined flight paths, with deviations generally limited to emergencies or extreme weather. % XXX need a ref here. how does the FAA and the relevant international body regulate movement?
+
+Because of inherent risks in air transportation, detailed, well-vetted information on flight paths is provided by government agencies \cite{guimera2005worldwide}, simplifying modeling. Ship movements have no equivalent top-down data collection effort, and while organizations such as the US Coast Guard have made efforts, little exists. Most information is provided via private contracts, through organisations such as Lloyd's of London, who have been recording information on shipping since 1774 \citep{Lloyd'sRegister-FairplayLtd.2010}. As a result, limited public data is available on the shipping trade, despite being a key component of transportation, identified by the FGDC \citep{FGDC} as of critical importance to the nation's spatial data infrastructure \citep{CurrierInPress}.
+
+% XXX where are you going with this?
+Transportation networks play an important economic role \cite{canning1993effects}, and this inherent value has limited information availability. Here, we look at using geographically volunteered information to infer the movement patterns which in part define the shipping network.
+
+% XXX XXX XXX
+% EXPAND THIS SECTION TO COMPARE BETWEEN NETWORK TYPES
+% TALK ABOUT OTHER MODES OF TRANSPORTATION; [this gives you a way to tame it, its reasonable to assume that it'll map to one of these models]
+
 
 %   + there are other transportation networks -- road, rail -- that are better understood
 %   + a comparison with airlines - both cases, captains have choice of route (follow desire lines) but that is very regulated and lots of data exists
@@ -67,13 +74,11 @@ simplifying modeling. Ship movements have no equivalent top-down data collection
 
 \subsection{Existing work}
 
-Many works exist focusing on specific areas within shipping, such as maritime awareness to detect anomalous behaviour \cite{Tun2007} or changing shipping lanes to protect a species \cite{Lagueux2011,Mckenna2012a}. % XXX JOHN CALAMBOKIDIS HERE AS WELL
-
- Few papers tackle shipping as a global phenomena, here we recount two that do.
+Many works exist focusing on specific areas within shipping, such as maritime awareness to detect anomalous behaviour \cite{Tun2007}, tracking ship-whale interactions \cite{jensen2004large}, or shipping lanes to protect a species \cite{Lagueux2011,Mckenna2012a}.  Few papers tackle shipping as a global phenomena, here we recount two that do.
 
 The first work % XXX can I say this really?
-to examine the global shipping trade in an ecological context was a synthesis effort to collect information across habitat types and impacts \citep{Halpern2008}. The work evaluates many human uses of the ocean, and gathers together global data to examine the cumulative impact humans have, ranging from changes in sea surface temperature due to radiative forcing to land-based nutrient runoff. The data used to represent shipping however has limitations: it ignores classes % XXX this is the first point at which I mention ship classes, what shipping *IS* should be explained earlier in the document.
- of vessels, and contains only 12\% of the fleet. Those ships it does contain are a spatially and statistically biased sample of the population \citep{Wang2007}. The data is highly variable between ships, so many areas where there is active use are lacking from the model. Finally, the paper doesn't tackle the modeling issues present, but instead provides a look at simple patterns without the context necessary to address deeper questions. % XXX cite the SOM? is that needed?
+to examine the global shipping trade in an ecological context was a synthesis effort to collect information across habitat types and impacts \citep{Halpern2008}. The work evaluates many human uses of the ocean, and gathers together global data to examine the cumulative impact humans have, ranging from changes in sea surface temperature due to radiative forcing to land-based nutrient runoff. The data used in this analysis to represent shipping however has limitations: it ignores vessel classes, % XXX this is the first point at which I mention ship classes, what shipping *IS* should be explained earlier in the document.
+ and contains information on 12\% of the fleet. The ships it does contain are a spatially and statistically biased sample of the population \citep{Wang2007}. The data is highly variable between ships, so many areas where there is active use are lacking from the model. Finally, the paper doesn't tackle the modeling issues present, but instead provides pattern without the context necessary to address deeper questions. % XXX cite the SOM? is that needed?
 
 % - Work on global shipping
 %   + Lots of papers that focus on specific parts of the shipping problem - few that take large perspective.
@@ -85,9 +90,9 @@ to examine the global shipping trade in an ecological context was a synthesis ef
 %     - missing big areas of the ocean that we know lots of ships are using
 %    * problem three - doesn't address data models (important for geographers); just says 'ships are here'.
 
-A more recent paper \citep{Kaluza2010} takes a different approach, instead focusing on shipping as a network, and its analysis is geared toward a network theory audience. Licensing data from Lloyd's of London, % XXX cite?
- the authors aggregate port of call data, sequential lists of vessel location. They then extrapolate port to port links into routes based on combining barriers of land with great circle distance to select the 'path' of a ship between two ports. This novel approach provides a measure of connectivity between port locations, and improves on the gravity model widely used to predict connectivity. % XXX cite
-However, this model is insufficient for understanding actual ship movement, necessary for resolving many of the conflicts listed above: we need geographically referenced facts about movement. Additionally, the data used requires expensive licensing, making extending the work financially untenable. Despite largely ignoring geography, this paper is the best look at the global shipping trade currently available.
+A more recent paper \citep{Kaluza2010} takes a different approach, by focusing on shipping as a network, with an analysis geared toward a network theory audience. Licensing data from Lloyd's of London, % XXX cite?
+ the authors aggregate port of call records, or sequential lists of vessel location. They then extrapolate port to port links into routes based on combining barriers of land with great circle distance to select the 'path' of a ship between two ports. This novel approach provides a measure of connectivity between port locations, and improves on the gravity model predominantly used to predict connectivity. % XXX cite
+However, this model provides insufficient detail to extract ship movement paths, necessary for resolving many of the conflicts listed above: we need geographically referenced facts about movement. Additionally, the data used requires expensive licensing, making extending the work financially prohibitive. Despite largely ignoring geography, this paper is the best look at the global shipping trade currently available.
 
 % - Kaluza paper, based on Lloyd's data
 %   + written for network theory audience
@@ -102,11 +107,11 @@ However, this model is insufficient for understanding actual ship movement, nece
 
 \subsection{Where this work comes in}
 
-By fusing data from a variety of sources, we can build a global dataset useful for interpreting the global shipping trade. While high-resolution (both spatially and temporally) volunteered information does exist, its use has been limited to regional problems, and past global work \citep{Corbett2007, Halpern2008} used lesser data. The coverage of high resolution data is primarily limited to within 100km of shores, also where most human and biological users of the ocean persist. % XXX hawkward! rewrite this.
+By fusing data from a variety of sources, we can build a dataset useful for interpreting the global shipping trade. While high-resolution (both spatially and temporally) volunteered information does exist, its use has been limited to regional problems, and past global work \citep{Corbett2007, Halpern2008} used lesser data. The coverage of high resolution data is primarily limited to within 100km of shores, also where most human and biological users of the ocean persist. % XXX hawkward! rewrite this.
  By using quality assurance methods from computer science and geography, % XXX really? what are the METHODS? record linkage, ...
   we can filter the unreliable input data. The near future will involve global, real-time, high resolution ship data \citep{JonesGoogle2012,carson2012satellite}, but we continue to need methods which allow data curation and integration which to address specific hypotheses.
 
-% XXX this whole last paragraph is sort of bleh, it doesn't really *sell* the work. I'm excited! show it here!
+% XXX XXX this whole last paragraph is sort of bleh, it doesn't really *sell* the work. I'm excited! show it here!
 
 %- building new global datasets of shipping that provide new insights by connecting data together
 %- high-res ais data only used for subcontentnal analysis previously - VOSClim used in Halpern 2008, Corbett
