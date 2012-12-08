@@ -38,8 +38,42 @@
 
 % XXX for now: stub the graphs we intend to include: maps of ship movement, classified by TYPE as derived from our linked observations.
 
-% XXX: graphs of SHIP SPEED by type, either using kernel estimation or simple histograms depending on the clarity of the data.
+% graphs of SHIP SPEED by type, either using kernel estimation or simple histograms depending on the clarity of the data.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=120mm]{figures/speed-boxplot.pdf}
+  \caption{Boxplot of validated ship speeds.}
+  \label{fig:vessel-speed-boxplot}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=180mm]{figures/speed-comparison-qqplot.pdf}
+  \caption{Distribution of validated ship movement speeds, computed using kernel density comparisons \cite{bowman1997applied}}
+  \label{fig:vessel-speed-density}
+\end{figure}
+
+% XXX include our VALIDATED SHIP MAPS
+% For now: doing a log transformation to merge the sailwx and AIS data. 
+
+For each cell the output density value as calculated as a log-transformed equal-weighted addition between the two input datasets, AIS and VOS:
+\begin{equation}
+ x = e^{\ln(R_{AIS}) + \ln(R_{VOS})}
+\end{equation}
+
+Average speed per cell was calculated as sum speed over all observations $R_{AIS} \cup R_{VOS} = n$, and dividing it by the total number of observations: 
+\begin{equation}
+ \bar{s} = \frac{\sum\limits_{i=0}^n s}{x}
+\end{equation}
+
+
+Geographic features tend to be clustered, exhibiting spatial autocorrelation. Here, we use Moran's I to compute global autocorellation statistics for our density rasters:
+\begin{equation}
+I = \frac{n}{\sum_{i=1}^{n}\sum_{j=1}^{n}w_{ij}}
+\frac{\sum_{i=1}^{n}\sum_{j=1}^{n}w_{ij}(x_i-\bar{x})(x_j-\bar{x})}{\sum_{i=1}^{n}(x_i - \bar{x})^2}
+\end{equation}
+
+where $n$ is the number of cells, and $w_{ij}$ is the spatial weight.
 
 
 % XXX: suggestion-- ships by season? just static results here, can do some dynamic stuff later.
-
