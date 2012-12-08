@@ -3,7 +3,7 @@
 % how did I solve the problem?
 
 % FUNDAMENTALLY, doing synthesis on the shipping, with a set of simple rules to validate observations.
-%shipping as sensor network -- a synthesis.
+% shipping as sensor network -- a synthesis.
 
 \subsection{Volunteered vessel information}
 
@@ -15,8 +15,8 @@ Historically, ship data was collected both by governments for internal use, and 
 
 % Using two kinds of volunteered ship data - needs to be handled in special ways:
 % describe VOSclim data:
-Ship captains have long taken climate observations alongside known location \cite{brohan2009marine}.  Building on this history, the Voluntary Observing Ship (VOS) \citep{VOSOverview} program has collected a dataset spanning over 20 years and covering 10\textendash20\% of commercial traffic within each year. The primary purpose of the data is to collect open-ocean climate observations, so many of the records lack ship attribute information, making trajectory reconstruction difficult. The data is contained within the greater International Comprehensive Ocean-Atmosphere Data Set (ICOADS) dataset, and though the data is both spatially and statistically biased \citep{Wang2007}, it still can serve as a useful 'training' dataset on ship movements in the open ocean. Here, we use VOS records from 2003--2011, a dataset of 68.8 % XXX FIX THIS NUMBER
-million records to provide validation and cross reference the rest of our observations.
+Ship captains have long taken climate observations alongside known location \cite{brohan2009marine}.  Building on this history, the Voluntary Observing Ship (VOS) \citep{VOSOverview} program has collected a dataset spanning over 20 years and covering 10\textendash20\% of commercial traffic within each year. The primary purpose of the data is to collect open-ocean climate observations, so many of the records lack ship attribute information, making trajectory reconstruction difficult. The data is contained within the greater International Comprehensive Ocean-Atmosphere Data Set (ICOADS) dataset, and though the data is both spatially and statistically biased \citep{Wang2007}, it still can serve as a useful 'training' dataset on ship movements in the open ocean. Here, we use VOS records from 2003--2011, a dataset of 92.4 
+million records to provide validation and cross reference the rest of our observations. % XXX: this is really all of sailwx, not exclusively VOS.
 
 % describe AIS data
 The Automatic Identification System (AIS) \citep{no20041028,Tetreault2002} was developed to improve maritime safety and prevent collisions, by providing mariners local situational awareness. Locating the ships via global positioning satellite (GPS) signal, and broadcasting the location alongside other attributes (Table \ref{table:ais-broadcast-attributes}) regularly via VHF transceiver \citep{Itu-r2010}, mariners get a real-time display of local traffic, invaluable in inclement weather or rescue operations.  The International Maritime Organization (IMO) mandates that all ships $\geq\negthickspace 150$ gross tonnage (GT) or ships bearing paid passengers carry AIS units, which has lead to approximately 200,000 ships being outfitted with AIS equipment, including all tankers, cargo ships and passenger vessels. Because the intent of the system was to improve maritime safety, well-understood VHF radios were used, broadcasting to about 40km between ships. Since then, land-based users, including ports, maritime professionals and amateurs, have come to realize that by setting up VHF antennae, low-cost local ship traffic data can be obtained at a range of up to 100km. This has led to numerous sites providing real-time feeds of ship movement, such as MarineTraffic.com \citep{MarineTraffic}, aggregating the records from many land-based antennae (and more recently, satellite feeds) and displaying them over both web maps and via Google Earth. 
@@ -29,7 +29,7 @@ Augmenting these datasets of ship observations, ancillary data was identified to
   \item Vessel data, tabular lists of ships along with attributes, collected from both authoritative and crowd-sourced datasets.
   \item Port databases, containing coordinates and berth details for ports globally. Approximately 5,000 ports were identified from a variety of volunteered and authoritative sources.
   \item A high resolution land-sea mask, here derived from SRTM Water Body Data (SWBD), which classifies the world into either land or sea at three arc seconds resolution (~90 m) for the much of the world ($56\deg$ S to $60\deg$ N), a byproduct of the SRTM digital terrain project\cite{rabus2003shuttle}. Additional data was for the areas beyond these bounds.
-  \item Approximate information on ship movement patterns, based on historical charts such as a CIA vessel movement chart from the cold war.
+  \item Approximate information on ship movement patterns, based on historical charts such as a CIA vessel movement chart from the cold war. (Figure \ref{fig:cia-shipping-map}).
   \item The original ship model I produced as part of the previous modeling effort \citep{Halpern2008}.
 \end{enumerate}
 % XXX EXPAND THIS LIST: ITU, FCC, Vesseltracker, DigitalSeas: THIS SHOULD BE MULTIPLE PAGES LONG...
@@ -88,19 +88,20 @@ Another important point is that while ship attributes provide us some details as
 
 % overview of summary statistics of data
 \begin{table}[htbp]
-  \begin{tabular}{rrrrll} %{\centering\arraybackslash}p{2cm}>{\centering\arraybackslash}p{5cm}>{\centering\arraybackslash}p{9cm}}
+  \begin{tabular}{rrrrrr} %{\centering\arraybackslash}p{2cm}>{\centering\arraybackslash}p{5cm}>{\centering\arraybackslash}p{9cm}}
     \hline
-    Type & Vessels & fleet size \textit{(data)} & fleet size \textit{(cited)} & coverage (\%) & observations (M) \\
+    Type & Vessels \textit{(AIS)} & Vessels \textit{(VOS)} & fleet size & coverage (\%) & observations (M) \\
+
     \hline
-    Cargo & 58510 & 32970 & 33392\textsuperscript{1} & & 665.45 \\
-    Pleasure & 71388 & 57617 & ~800,000\textsuperscript{2} & & 267.48 \\
-    Support & 23496 & 21425 & 25234\textsuperscript{1} & & 298.02 \\
-    Tanker & 19363 & 20503 & 14068\textsuperscript{1} & & 264.42 \\
-    Passenger & 8296 & 7182 & 6370\textsuperscript{1} & & 142.16 \\
-    Fishing & X & 28544 & 51200\textsuperscript{3} & & 6.87 \\
-    Other & X & 29077 & -- & -- & 4.75 \\
-    High-speed & 2434 & 1178 & 1454 & 0.81 & 2.52 \\
-    Authority & X & 1308 & X & & 1.44 \\
+    Cargo & 25214 & 5838 & 33392\textsuperscript{1} & 75.6 & 665.45 \\
+    Tanker & 9758 & 2375 & 14068\textsuperscript{1} & 69.4 & 264.42 \\
+    Passenger & 4007 & 777 & 6370\textsuperscript{1} & 62.9 & 142.16 \\
+    Support & 9954 & 735 & 25234\textsuperscript{1} & 39.4 & 298.02 \\
+    High-speed & 404 & 81 & 1178 & 34.3 & 2.52 \\
+    Fishing & 11186 & 349 & 51200\textsuperscript{3} & 21.8 & 6.87 \\
+    Pleasure & 20727 & 661 & 800,000\textsuperscript{2} & 2.59 & 267.48 \\
+    Other & 9507 & 1400 & -- & -- & 4.75 \\
+    Authority & 656 & 55 & -- & -- & 1.44 \\
   \end{tabular}
   \caption{Summary of analyzed ship data\\
   1. \cite{Equasis2011}.\\
@@ -110,6 +111,40 @@ Another important point is that while ship attributes provide us some details as
 \end{table}
 % XXX: high-speed craft from ISL? can't find original ref
 % NOTE: the FAO estimates the _full_ fishing fleet size at 4 million vessels, the size clearly has an important effect.
+% select validation_class, count(validation_class) FROM sailwx.obs_lines o LEFT JOIN clean.ships s ON s.id = o.ship_id WHERE validation_class is not null GROUP BY validation_class;
+
+% tanker           |  2375
+% high-speed       |    81
+% cargo            |  5838
+% passenger        |   777
+% support          |   735
+% authority        |    55
+% fishing          |   349
+% pleasure         |   661
+% other            |  1400
+
+% SELECT validation_class, COUNT(validation_class) FROM clean.ships WHERE validation_score > 0 GROUP BY validation_class;
+% tanker           |  9758
+% pleasure         | 20727
+% fishing          | 11186
+% high-speed       |   404
+% cargo            | 25214
+% passenger        |  4007
+% other            |  9507
+% support          |  9954
+% authority        |   656
+
+% classes from joined clean.ships table [RAW, both good and 'bad' records.]
+% 'high-speed': 1178
+% 'passenger': 7182
+% 'cargo': 32970
+% 'support': 21425
+% 'authority': 1308
+% 'fishing': 28544
+% 'pleasure': 57617
+% 'tanker': 20503
+% 'other': 29077
+
 
 % Equasis 'state of the fleet' report (2011):
 % NOTE: also has a helpful list in annex I of what comprises each class.
@@ -141,29 +176,6 @@ Another important point is that while ship attributes provide us some details as
 %   ferries: 3656
 % total non-cargo: 26880
 % total fleet size: 74398
-
-% classes from joined clean.ships table:
-% [NOTE: these may double count some ships].
-% 'high-speed': 1178
-% 'passenger': 7182
-% 'cargo': 32970
-% 'support': 21425
-% 'authority': 1308
-% 'fishing': 28544
-% 'pleasure': 57617
-% 'tanker': 20503
-% 'other': 29077
-
-% these came from our full obs table, but clearly have issues (such as: no fishing).
-% high-speed: 2434
-% cargo: 58510
-% other: 0
-% fishing: 0
-% passenger: 8296
-% pleasure: 71388
-% support: 23496
-% tanker: 19363
-% authority: 0
 
 \subsection{Data Representations}
 
@@ -295,7 +307,7 @@ By combining authoratative data from a variety of sources (Table \ref{table:ship
 \end{table}
 
 %     International Telecommunication Union: Maritime mobile Access and Retrieval System (MARS) & ITU & 372183 & 75928 & name, callsign, mmsi, class, owner, imo, gross tonnage\\ 
-Here, we build a probabilistic model which evaluated all possible pairwise combinations between all source records. By using the methodology of record linkage \cite{Christen2012}, we built a set of rules to map records between the six possible source pairs. Each pair was evaluated for attributes which had consistent data, and matched against these columns. The software package used, (FRIL \cite{Jurczyk2008fril}), provides an Expectation Maximization algorithm to iteratively optimize the weighting of columns, but due to the volume of data in our sources, this proved inefficient. Instead, samples of the data were examined, and the criteria were set by manual tuning both the weightings and acceptance levels to match a training dataset of valid linkages (Table \ref{table:ships-record-linkage-methods}). % XXX HUURR, write this better
+Here, we build a probabilistic model which evaluated all possible pairwise combinations between all source records. By using the methodology of record linkage \cite{Christen2012}, we built a set of rules to map records between the six possible source pairs. Each pair was evaluated for attributes which had consistent data, and matched against these columns. The software package used, (FRIL, \cite{Jurczyk2008fril}), provides an Expectation Maximization algorithm to iteratively optimize the weighting of columns, but due to the volume of data in our sources, this proved inefficient. Instead, samples of the data were examined, and the criteria were set by manual tuning both the weightings and acceptance levels to match a training dataset of valid linkages (Table \ref{table:ships-record-linkage-methods}). % XXX HUURR, write this better
 
 For most fields, either the 'equal fields' (both fields are exactly the same) or the Jaro-Winkler distance metric were used. Jaro-Winkler has a useful properties for this data: it is effective on both numeric and textual data, and is particuarly useful in picking up the kinds of errors inherent in user-entered and sometimes poorly validated data sources such as those used in this study. A study of a variety of string comparison metrics \cite{Cohen2003} found it % XXX what?
 
@@ -315,9 +327,7 @@ While some of our input linkage datasets are semi-authoratative, the best data r
     \hline
     Source $A$ & Source $B$ & acceptance level & column & distance metric & weight \\
     \hline
-     DS & FCC & 95 & callsign & equal & 99 \\
-        &     &    & name & Jaro-Winkler\textsuperscript{1} & 1 \\
-     DS & ITU & 92 & callsign & Jaro-Winkler & 50 \\
+     DS & ITU & 92 & callsign & Jaro-Winkler\textsuperscript{1} & 50 \\
         &     &    & MMSI & equal & 40 \\
         &     &    & name & Jaro-Winkler & 40 \\
      DS &  VT & 85 & callsign & Jaro-Winkler & 60 \\
@@ -333,9 +343,11 @@ While some of our input linkage datasets are semi-authoratative, the best data r
         &     &    & MMSI & Edit Distance & 30 \\
         &     &    & name & Jaro-Winkler & 10 \\
         &     &    & IMO & Jaro-Winkler & 40 \\
+     DS & FCC & 95 & callsign & equal & 99 \\
+        &     &    & name & Jaro-Winkler& 1 \\
   \end{tabular}
   \caption{Ship record linkage methods used. \\
-    \textsuperscript{1} Jaro-Winkler distance used length $l = 4$ and scaling factor $p = 0.1$}
+    \textsuperscript{1} Jaro-Winkler distance \cite{winkler1990string}: length $l = 4$ and scaling factor $p = 0.1$}
   \label{table:ships-record-linkage-methods}
 \end{table}
 
