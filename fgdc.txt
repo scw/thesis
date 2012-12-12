@@ -1,0 +1,11 @@
+% In 1996 the International Steering Committee of Global Map (ISCGM) was established and in 1998 the national mapping agencies of all countries of the world were formally invited to participate in the effort The ISCGM adopted the specifications for Version 1.0 later that year, and by 2000 this version had been completed and was released. The product included eight data layers: vegetation, land cover, land use, elevation, drainage, population centers, boundaries, and transportation.
+% -- \cite{CurrierInPress}
+
+% In the United States, the Federal Geographic Data Committee (FGDC) guides the development, use, sharing, and dissemination of geographic data (http://www.fgdc.gov/). This committee has identified seven core themes of critical importance to the nation’s spatial data infrastructure: the cadaster, digital orthoimagery, elevation, geodetic control, governmental unit boundaries, hydrographic features, and transportation networks (FGDC, 2008). In published standards each theme is formalized in a data dictionary, which defines the structural and content requirements that a dataset must satisfy. The standards additionally specify a “minimal level of data content that data producers, consumers and vendors shall use for the description and interchange of those data” (FGDC, 2008:1).
+% -- \cite{CurrierInPress}
+
+%From the FGDC docs:
+% 1.3.7 Transportation⋅
+%Transportation data are used to model the geographic locations, interconnectedness, and characteristics of the transportation system.  The transportation system includes both physical and non-physical components representing all modes of travel that allow the movement of freight and people between locations.  Sub-themes representing the physical components of the transportation infrastructure include airport facilities, waterways, roads, railroads, and transit.  \cite{FGDC}
+
+
