@@ -31,7 +31,9 @@ Record linkage matched 30-50\% of each record source pair (Table \ref{table:ship
 
 \subsection{Geographic Validation}
 
-The land-sea mask developed in Section \ref{sec:land-sea-mask}  was compared against each observation: is the point contained within a water body? However, this simple validation technique wasn't sufficient to resolve many observations, which lie at the edge of the two classes when docked and moving near shore (Figure \ref{fig:longbeach-validation}). Due to this and other limitations, the observations 'on land' were retained for the rest of the analysis, but perhaps a better approach would be to apply a local density estimation on the vessels, and determine a mask based on thresholding the data. Instead, most of the on land observations were filtered by using our track generation rules, which by restricting vessel movements to a possible range, generally remove individual erroneous observations, but a more robust technique would be useful for systematic errors.
+The land-sea mask developed (Section \ref{sec:land-sea-mask}) was compared against each observation: is the point contained within a water body? However, this simple validation technique was insufficient to resolve many observations, which lie at the edge of the two classes when docked % XXX Oliver Do docked ships really belong in a shipping dataset anyway?
+ and moving near shore % XXX Oliver How near shore?  Are there that many boats that actually travel in this zone?  I imagine Costa Concordia.
+(Figure \ref{fig:longbeach-validation}). Due to this and other limitations, the observations 'on land' were retained for the rest of the analysis, but perhaps a better approach would be to apply a local density estimation on the vessels, and determine a mask based on thresholding the data. Instead, most of the on land observations were filtered by using our track generation rules, which by restricting vessel movements to a possible range, generally remove individual erroneous observations, but a more robust technique would be useful for systematic errors.
 
 % XXX: how did we improve data quality by using geographic filtering? what does that tell us, and why does it matter?
 
@@ -42,7 +44,7 @@ The land-sea mask developed in Section \ref{sec:land-sea-mask}  was compared aga
   \centering
   \includegraphics[width=100mm]{figures/speed-boxplot.pdf}
   \caption{Boxplot of validated ship speeds.}
-  \label{fig:vessel-speed-boxplot}
+  \label{fig:vessel-speed-boxplot} % XXX Oliver: and? in theory I shouldn't have to read that part of the paper.
 \end{figure}
 
 Ship speed is an important predictor for a variety of questions, but is challenging to represent spatially, as it is sensitive to the observation frequency in a particular location, along with accurate distance and time measurements. To get a general sense of ship speed, the speed distribution of each vessel class was examined, both through simple boxplots (Figure \ref{fig:vessel-speed-boxplot}), and through a more nuanced kernel density estimation (Figure \ref{fig:vessel-speed-density}). The density estimation shows that for many classes, distinct speed patterns are clearly visible. For example, support vessels, which include tugs and barges move much more slowly than high-speed transport vessels. Other classes are less distinct in speed signature: cargo and tanker vessels have surprisingly similar average speeds, though by breaking this down spatially (Figure \ref{fig:speed-ship-map}), we can see a more nuanced story.
@@ -52,7 +54,7 @@ Ship speed is an important predictor for a variety of questions, but is challeng
   \centering
   \includegraphics[width=150mm]{figures/speed-comparison-qqplot.pdf}
   \caption{Distribution of validated ship movement speeds, computed using kernel density comparisons, as described in \citep{bowman1997applied}.}
-  \label{fig:vessel-speed-density}
+  \label{fig:vessel-speed-density} % XXX FIX LABELS, ADD UNITS, WHAT DOES THIS MEAN?
 \end{figure}
 
 \begin{figure}[htbp]
@@ -74,6 +76,7 @@ The density maps show the dramatically different movement structure of the major
 
 \subsubsection{Spatial Autocorrelation}
 
+% XXX Oliver Oh.  I thought you had a regression somewhere, in which case Moran's I tells you something about whether spatial autocorrelation is weakening your inference.  In this case, I'd have gone with a variogram.
 Geographic features tend to be clustered, exhibiting spatial autocorrelation. Here, we use Moran's I to compute global autocorrelation statistics for our density rasters:
 \begin{equation}
 I = \frac{n}{\sum_{i=1}^{n}\sum_{j=1}^{n}w_{ij}}
