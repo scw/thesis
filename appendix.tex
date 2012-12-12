@@ -11,13 +11,21 @@
   \label{fig:ais-obs-nov-2011}
 \end{figure}
 
+% show our image of invalid 'on land' ships in the harbor of long beach?
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=140mm,angle=-90]{figures/cal-cargo.pdf}
+  \includegraphics[width=140mm]{images/example-long-beach-harbor-validation.png}
+  \caption{Long Beach Harbor, California. Points shown here in purple are 'on land', but most of these on-land observations are actually parts of the harbor.}
+  \label{fig:longbeach-validation}
+\end{figure}
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=140mm]{figures/cargo_density.png}
   \caption{AIS observations, Southern California Bight. Nov 2011--Dec 2012. Note the ballast water exchange point lower left.}
   \label{fig:cal-cargo}
 \end{figure}
-
 
 \begin{figure}[htbp]
   \centering
@@ -53,6 +61,71 @@
   \label{table:ais-broadcast-attributes}
 \end{table}
 
+% had this as a list, also some hackery with unnesting class data:
+% select distinct(trim(both from unnest(class))), count(*) from clean.ships where validation_class = 'tanker' and validation_score > 0 and obs_count > 0 GROUP BY class ORDER BY btrim DESC;ships=# select distinct(trim(both from unnest(class))), count(*) from clean.ships where validation_class = 'tanker' and validation_score > 0 and obs_count > 0 GROUP BY class ORDER BY btrim DESC;
+
+\begin{longtable}{l|l|l}
+\hline \multicolumn{1}{|c|}{\textbf{Type}} & \multicolumn{1}{c|}{\textbf{Sub-type}} & \multicolumn{1}{c|}{\textbf{Vessels}} \\ \hline 
+\endfirsthead
+
+%\multicolumn{3}{c}%
+%{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\hline \multicolumn{1}{|c|}{\textbf{Type}} &
+\multicolumn{1}{c|}{\textbf{Sub-type}} &
+\multicolumn{1}{c|}{\textbf{Vessels}} \\ \hline 
+\endhead
+
+%\hline \multicolumn{3}{|r|}{{Continued on next page}} \\ \hline
+\endfoot
+    cargo & cargo ship & 30355 \\
+          & merchant & 2919 \\
+          & bulk carrier & 1338 \\
+          & container ship & 669 \\
+          & general cargo & 608 \\
+          & vehicle carrier & 56 \\
+    tanker & tankship & 10460 \\
+           & tanker   & 8731 \\
+           & oil tanker & 1312 \\
+           & liquefied gas carrier & 112 \\
+           & chemical carrier & 39 \\
+    other & merchant & 17460 \\
+          & other ship & 9421 \\
+          & unspecified & 4580 \\
+          & motor boat & 4231 \\
+          & inland waterways & 3825 \\
+          & sloop & 2799 \\
+          & reserved for future use & 2164 \\
+          & all other activities & 1345 \\
+          & reserved for regional use & 712 \\
+  support & pusher/tug & 4392 \\
+          & tug & 7885 \\
+          & towing vessel & 2747 \\
+          & supply vessel & 1501 \\
+          & service vessels & 1388 \\
+          & trawler & 1056 \\
+          & dredger & 995 \\
+          & vessel engaged in dredging or underwater operation & 776 \\
+          & pilot vessel & 685 \\
+  pleasure & pleasure/leisure & 22013 \\
+           & pleasure & 14573 \\
+           & pleasure craft & 7290 \\
+           & sailing vessel & 5527 \\
+           & yacht & 8214 \\
+  fishing & fishing vessel & 11110 \\
+          & fishing boat & 8454 \\
+          & fishing industry & 5767 \\
+          & fishing & 3213 \\
+  passenger & passenger ship & 6478 \\
+            & ferry & 704 \\
+  high-speed & high-speed craft & 658 \\
+             & high speed craft & 520 \\
+  authority & sar-vessel & 699 \\
+            & search and rescue vessel & 609 \\
+            & rescue vessel & 102 \\
+  \caption{Detailed ship class breakdown. Classes come from observationsgT}
+  \label{table:ship-class-breakdown}
+\end{longtable}
+
 \newpage
 \section{Source Code}
 \label{sec:source-code}
@@ -81,10 +154,9 @@ All code used to generate the project is available at https://github.com/scw/ais
 \label{sec:record-linkage-appendix}
 
 % XXX XXX
-The Jaro-Winkler formula 
+The Jaro-Winkler formula is defined in two 
 
 % good code-based illustration at: http://www.gettingcirrius.com/2011/01/calculating-similarity-part-2-jaccard.html
-% XXX MOVE THIS TO AN APPENDIX??
 
 The Jaro distance:
 \begin{equation}
@@ -111,4 +183,5 @@ Jaro-Winkler distance:
 \begin{equation}
   d_w = d_j + (\ell p (1 - d_j))
 \end{equation}
+
 
