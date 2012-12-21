@@ -1,5 +1,4 @@
-\documentclass[12pt,letterpaper]{article}
-%\documentclass[14pt,letterpaper]{extarticle}
+\documentclass[12pt,oneside,final]{ucthesis}
 
 \includeonly{%
   abstract,
@@ -10,6 +9,14 @@
   conclusions,
   appendix
 }
+% from ucthesis
+\usepackage{amssymb}
+\usepackage{multirow}
+\usepackage{amsthm}
+
+% enable epigraphs
+\usepackage{epigraph}
+\renewcommand{\textflush}{flushepinormal}
 
 % enable text super- and sub- scripts
 \usepackage{xltxtra}
@@ -36,7 +43,7 @@
 \usepackage{minted}
 
 %\usepackage[margin=.75in,nohead,nofoot]{geometry}⋅
-\usepackage[nohead]{geometry}
+%\usepackage[nohead]{geometry}
 \usepackage{hyperref}
 \usepackage[authoryear,round]{natbib}
 
@@ -50,15 +57,9 @@
 \newcommand{\Rcmd}[1]{\texttt{#1}}
 
 %\setlength{\parskip}{0.05in}
-\linespread{1.2}
+%\linespread{1.2}
 
-\geometry{
-  body={6.5in, 8.75in},
-  left=1.0in,
-  top=1.0in,
-  right=1.0in,
-  bottom=1.0in
-}
+\def\newblock{\hskip .11em plus .33em minus .07sem}
 
 \hypersetup{
   colorlinks = true,
@@ -77,34 +78,63 @@
 \makeatother
 
 \begin{document}
-\title{\Huge{Assessing ship movements using volunteered geographic information}}
-\author{Shaun Walbridge}
+  \title{\Huge{Assessing ship movements using volunteered geographic information}}
+  \author{Shaun Walbridge}
+
+  \report{Thesis}
+  \degree{Master of Arts}
+  \degreemonth{March}
+  \degreeyear{2013}
+  \approvalmonth{December}
+  \approvalyear{2012}
+
+  \chair{Professor Steven D. Gaines}
+  \committeeII{Research Professor Robert R. Warner}
+  \committeeIII{Assistant Professor Krzysztof W. Janowicz}
+  \nummembers{3}
+  \field{Ecology, Evolution, and Marine Biology}
+  \campus{Santa Barbara}
+
 \maketitle{}
 
-%\tableofcontents{
-%\addcontentsline{toc}{chapter}{Table of contents}
+\begin{frontmatter}
+  \input{frontmatter}
+  \tableofcontents
+  \listoffigures
+  \listoftables
+\end{frontmatter}
 
-%\include{abstract}
+\dsp
 
-\section{\textbf{Introduction}}
-\include{introduction}
+\chapter{Introduction}
+\label{cha:introduction}
+\input{introduction}
 
-\section{\textbf{Methods}}
-\include{methods}
+\chapter{Methods}
+\label{cha:methods}
+\input{methods}
 
-\section{\textbf{Results}}
-\include{results}
+\chapter{Results}
+\label{cha:results}
+\input{results}
 
-\section{\textbf{Discussion}}
-\include{discussion}
+\chapter{Discussion}
+\label{cha:discussion}
+\input{discussion}
 
-\section{\textbf{Conclusion}}
-\include{conclusions}
+\chapter{Conclusion}
+\label{cha:conclusion}
+\input{conclusions}
 
+\part*{\addcontentsline{toc}{part}{Appendices}Appendices}
+\chapter*{}
+\appendix
 
 \include{appendix}
 
+\ssp   
 \bibliography{refs/thesis,refs/links,refs/vgi,refs/prospectus,refs/standards,refs/software}
 %\bibliographystyle{plainnat}
 \bibliographystyle{jss}
+
 \end{document}

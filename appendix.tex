@@ -1,7 +1,7 @@
-\appendix{}
-\gdef\thesection{Appendix \Alph{section}}
+%\appendix{}
+%\gdef\thesection{Appendix \Alph{section}}
 
-\section{Figures}
+\chapter{Figures}
 \label{sec:figures}
 
 \begin{figure}[htbp]
@@ -42,7 +42,7 @@
 \end{figure}
 
 
-%\section{Tables}
+\chapter{Tables}
 
 \begin{table}[htbp]
   \begin{tabular}{lr}
@@ -127,7 +127,7 @@
 \end{longtable}
 
 \newpage
-\section{Source Code}
+\chapter{Source Code}
 \label{sec:source-code}
 
 % include SOME python code here -- our AIS parser, what else?
@@ -150,15 +150,14 @@ All code used to generate the project is available at https://github.com/scw/ais
 %             frame=lines,
 %             framesep=2mm]{r}{../code/kml/parsekml.py}
 
-\section{Record Linkage}
+\chapter{Record Linkage}
 \label{sec:record-linkage-appendix}
 
 % XXX XXX
-The Jaro-Winkler formula is defined in two 
+The Jaro-Winkler formula is defined in two steps. First, The Jaro distance, $d_j $, is defined as:
 
 % good code-based illustration at: http://www.gettingcirrius.com/2011/01/calculating-similarity-part-2-jaccard.html
 
-The Jaro distance:
 \begin{equation}
   d_j = \left\{
   \begin{array}{l l}
@@ -166,22 +165,23 @@ The Jaro distance:
     \frac{1}{3}\left(\frac{m}{|s_1|} + \frac{m}{|s_2|} + \frac{m-t}{m}\right) & \text{otherwise} \end{array} \right.
 \end{equation}
 
-$ d_j $ Jaro Distance
+Where:
+
 m = number of matching patterns
 t = number of transposed characters
 |s1| = length of first string
 |s2| = length of second string
 
+Two characters are considered matching when they are no further apart than:
 \begin{equation}
   \left\lfloor\frac{\max(|s_1|,|s_2|)}{2}\right\rfloor-1
 \end{equation}
-range = max(length(a), length(b)) / 2 - 1
 
-
-Jaro-Winkler distance:
+The second component, added by Winkler, preferentially weights strings which match from the beginning, set by the prefix length $ l $.  Thus, the Jaro-Winkler distance is defined:
 
 \begin{equation}
   d_w = d_j + (\ell p (1 - d_j))
 \end{equation}
 
+Where $ p $ is a constant scaling factor to adjust for the strength of common prefixes. In its usage here, $ p = 0.1 $ and $ l = 4 $.
 
