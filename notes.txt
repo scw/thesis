@@ -1,0 +1,27 @@
+Jano:
+ - provide more detail on what actually was done. Code, whatever, fine -- but include details. It can be in an appendix, but need to include information like cell size, processing techniques, and other details of what the heck you actually did. [Move some stuff from the methods into this appendix].
+
+
+Robert:
+ "It was actually kind of fun to read, even though the writing was crummy."
+
+  - bad writing, interesting problem.
+
+
+Steve: Great talk, did a good job.
+
+Ben: Talk was excellent. Need to take the things from the talk and drop them directly into the paper. Strikes, sound, ... discussion should be point by point on this stuff! GIT ER DONE
+
+IMAGES:
+ - clear copyright or REPLACE: 
+    + EBM diagram
+    + time geography picture
+    + Nisbett's models of reality
+    
+ - FIX: rotated 9fold image? either shrink it to 
+
+
+Uncertainty: 
+ - at a minimum, include our 'obs per area' figure to show what kind of density we have, what % of major world ports is sampled.
+ - Finish running Moran's I calculations on data layers to at least report that.
+ - 
