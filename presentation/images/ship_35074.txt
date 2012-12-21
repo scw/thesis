@@ -1,0 +1,11 @@
+ 35074 
+ Malta  
+ PURKI
+ IMO: 9004217
+ MMSI: 248495000
+ Callsign: 9HA2386
+ length: 147
+ width: 26
+ cargo ship
+ obs: 24225
+

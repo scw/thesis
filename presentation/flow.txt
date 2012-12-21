@@ -1,8 +1,14 @@
 
 Things to create:
 
- - a diagram of the data glow between the various steps.
- - nice, high res maps that are suitable for displaying in a poorly lit room.
- - building out the connection to ECOLOGY
- - put together a slide on the work that I did with Megan and Steve
- - include an image from the NOAA cetatean & sound WG
+ - a diagram of the data flow between the various steps. DONE
+
+ - nice, high res maps that are suitable for displaying in a poorly lit room. DONE
+
+ - building out the connection to ECOLOGY. STARTED, ADD DETAILS, CIRCUIT SCAPE, why it matters, linkages.
+
+ - put together a slide on the work that I did with Megan and Steve DONE
+
+ - include an image from the NOAA cetatean & sound WG DONE
+
+ ANIMATION BETWEEN SHIP TYPES, START WITH LEAST DENSE, BUILD UP TO CARGO DONE
