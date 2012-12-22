@@ -1530,12 +1530,11 @@
 \textheight 7.95in      % excl. headers & pagenums; somewhere, .05in gets lost
 %\textheight 6.95in
 
-
 \textwidth 5.75in       % width of text area
 %\textwidth 5.625
 
 %\topmargin 0.25in       % plus 1in from top to headers
-\topmargin 1.0in
+\topmargin 0.25in
 
 %\oddsidemargin 0.5in    % plus 1in from left edge of paper
 \oddsidemargin 0.625in
@@ -1543,22 +1542,8 @@
 %\evensidemargin 0.25in  % for double-sided printing; plus 1in from left
 \evensidemargin 0.125in
 
-\footskip 0.2in         % space between bottom of text and footer baseline
+\footskip 0.3in         % space between bottom of text and footer baseline
 \raggedbottom
 
 
 \endinput
-
-
-
-
-
-
-
-
-
-
-
-
-
-
