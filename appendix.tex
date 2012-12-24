@@ -1,45 +1,59 @@
 %\appendix{}
 %\gdef\thesection{Appendix \Alph{section}}
 
-\chapter{Figures}
-\label{sec:figures}
+\chapter{Movement Modeling}
+\label{sec:movement-modeling-appendix}
 
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=160mm]{figures/ais-nov-2011.pdf}
-  \caption{Raw AIS observations, November 2011. Note the observations located in the Hoggar Mountains in Algeria.}
-  \label{fig:ais-obs-nov-2011}
-\end{figure}
+% XXX copy and paste job, include details here.... tools used? DETAILED APPROACH.
+Each vessel track was rasterized to both an 90 arcsecond grid (\textasciitilde{}5.5km at the equator) and an equal area grid in the Hobo Dyer projection (Figure \ref{fig:eu-cargo-density}). The latter case assures that the density function is computed on grid cells representing the same area for each cell, unlike the geographic grid where area varies by latitude. A vessel is counted only once for each cell it passes through, as the focus here on overall movement patterns, and this criteria helps de-emphasize vessels with limited movement. Each raster vessel track was combined using simple map algebra to produce density maps for both the AIS and VOS data, for each of our vessel classes. % XXX Oliver: A passing cargo ship is comparable to a ferry crisscrossing the same spot continuously every day?  Not that you should do this, but somebody might wonder.
 
-% show our image of invalid 'on land' ships in the harbor of long beach?
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=140mm]{images/example-long-beach-harbor-validation.png}
-  \caption{Long Beach Harbor, California. Points shown here in purple are 'on land', but most of these on-land observations are actually parts of the harbor.} % XXX Oliver: a little context here?
-  \label{fig:longbeach-validation}
-\end{figure}
+Maps produced in ArcGIS and Quantum GIS.
+
+gdal_rasterize did the rasterization step
+
+gdal_add, custom python code combined the results
+
+paralellized in Python.
+
+% Bresenham's line algorithm used for rasterizing the tracks. Only counted a ship moving through a single cell once to get movement patterns v. dockage
+
+% XXX built spatial indexes and reordered the data on disk to match for performance.
 
 
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=140mm]{figures/cargo_density.png}
-  \caption{AIS observations, Southern California Bight. Nov 2011--Dec 2012. Note the ballast water exchange point lower left.}
-  \label{fig:cal-cargo}
-\end{figure}
+\chapter{Record Linkage}
+\label{sec:record-linkage-appendix}
 
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=160mm]{figures/ais-and-ports-cea.pdf}
-  \caption{Approximate AIS coverage (green), global ports (red).}
-  \label{fig:ais-coverage}
-\end{figure}
+The Jaro-Winkler formula is defined in two steps. First, The Jaro distance, $d_j $, is defined as:
 
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=160mm]{images/cia-lanes-small-cropped.png}
-  \caption{"World Shipping Lanes" map produced by the Central Intelligence Agency, 1973.}
-  \label{fig:cia-shipping-map}
-\end{figure}
+% good code-based illustration at: http://www.gettingcirrius.com/2011/01/calculating-similarity-part-2-jaccard.html
+
+\begin{equation}
+  d_j = \left\{
+  \begin{array}{l l}
+    0 & \text{if }m = 0 \\ 
+    \frac{1}{3}\left(\frac{m}{|s_1|} + \frac{m}{|s_2|} + \frac{m-t}{m}\right) & \text{otherwise} \end{array} \right.
+\end{equation}
+
+Where:
+
+m = number of matching patterns
+t = number of transposed characters
+|s1| = length of first string
+|s2| = length of second string
+
+Two characters are considered matching when they are no further apart than:
+\begin{equation}
+  \left\lfloor\frac{\max(|s_1|,|s_2|)}{2}\right\rfloor-1
+\end{equation}
+
+The second component, added by Winkler, preferentially weights strings which match from the beginning, set by the prefix length $ l $.  Thus, the Jaro-Winkler distance is defined:
+
+\begin{equation}
+  d_w = d_j + (\ell p (1 - d_j))
+\end{equation}
+
+Where $ p $ is a constant scaling factor to adjust for the strength of common prefixes. In its usage here, $ p = 0.1 $ and $ l = 4 $.
+
 
 
 \chapter{Tables}
@@ -57,7 +71,7 @@
     Speed \\
     Destination & \textit{rarely valid}
   \end{tabular}
-  \caption{AIS broadcast attributes. Update frequency depends on ship speed, but varies between a minimum of a record every 2 seconds for quickly moving vessels, to once per 3 minutes for moored vessels. Additional attributes are available, but infrequently used.}
+  \caption[AIS broadcast attributes]{AIS broadcast attributes. Update frequency depends on ship speed, but varies between a minimum of a record every 2 seconds for quickly moving vessels, to once per 3 minutes for moored vessels. Additional attributes are available, but infrequently used.}
   \label{table:ais-broadcast-attributes}
 \end{table}
 
@@ -122,13 +136,13 @@
   authority & sar-vessel & 699 \\
             & search and rescue vessel & 609 \\
             & rescue vessel & 102 \\
-  \caption{Detailed ship class breakdown. Classes come from observationsgT}
+  \caption[Detailed ship classes]{Detailed ship class breakdown. Classes come from observationsgT}
   \label{table:ship-class-breakdown}
 \end{longtable}
 
-\newpage
-\chapter{Source Code}
-\label{sec:source-code}
+%\newpage
+%\chapter{Source Code}
+%\label{sec:source-code}
 
 % include SOME python code here -- our AIS parser, what else?
 % steps: download AIS
@@ -136,7 +150,7 @@
 % insert AIS into DB, formalize
 % download & parse ship databases
 
-All code used to generate the project is available at https://github.com/scw/ais-kml-parser. The full code is omitted from this document, due to length restrictions.
+%All code used to generate the project is available at https://github.com/scw/ais-kml-parser. The full code is omitted from this document, due to length restrictions.
 
 %\texttt{aiskml.py}:
 %\inputminted[linenos,
@@ -150,38 +164,44 @@ All code used to generate the project is available at https://github.com/scw/ais
 %             frame=lines,
 %             framesep=2mm]{r}{../code/kml/parsekml.py}
 
-\chapter{Record Linkage}
-\label{sec:record-linkage-appendix}
+\chapter{Figures}
+\label{sec:figures}
 
-% XXX XXX
-The Jaro-Winkler formula is defined in two steps. First, The Jaro distance, $d_j $, is defined as:
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=160mm]{figures/ais-nov-2011.pdf}
+  \caption[AIS observations, November 2011]{Raw AIS observations, November 2011. Note the observations located in the Hoggar Mountains in Algeria.}
+  \label{fig:ais-obs-nov-2011}
+\end{figure}
 
-% good code-based illustration at: http://www.gettingcirrius.com/2011/01/calculating-similarity-part-2-jaccard.html
+% show our image of invalid 'on land' ships in the harbor of long beach?
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=140mm]{figures/example-long-beach-harbor-validation.png}
+  \caption[Long beach harbor, validation example]{Long Beach Harbor, California. Points shown here in purple are 'on land', but most of these on-land observations are actually parts of the harbor.} % XXX Oliver: a little context here?
+  \label{fig:longbeach-validation}
+\end{figure}
 
-\begin{equation}
-  d_j = \left\{
-  \begin{array}{l l}
-    0 & \text{if }m = 0 \\ 
-    \frac{1}{3}\left(\frac{m}{|s_1|} + \frac{m}{|s_2|} + \frac{m-t}{m}\right) & \text{otherwise} \end{array} \right.
-\end{equation}
 
-Where:
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=140mm]{figures/cargo_density.png}
+  \caption[AIS Observations, Southern California Bight]{AIS observations, Southern California Bight. Nov 2010--Dec 2011. Note the ballast water exchange point lower left.}
+  \label{fig:cal-cargo}
+\end{figure}
 
-m = number of matching patterns
-t = number of transposed characters
-|s1| = length of first string
-|s2| = length of second string
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=160mm]{figures/ais-and-ports-cea.pdf}
+  \caption[AIS coverage]{Approximate AIS coverage (green), global ports (red).}
+  \label{fig:ais-coverage}
+\end{figure}
 
-Two characters are considered matching when they are no further apart than:
-\begin{equation}
-  \left\lfloor\frac{\max(|s_1|,|s_2|)}{2}\right\rfloor-1
-\end{equation}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=160mm]{figures/cia-lanes-small-cropped.png}
+  \caption[CIA World Shipping Lanes]{"World Shipping Lanes" map produced by the Central Intelligence Agency, 1973.}
+  \label{fig:cia-shipping-map}
+\end{figure}
 
-The second component, added by Winkler, preferentially weights strings which match from the beginning, set by the prefix length $ l $.  Thus, the Jaro-Winkler distance is defined:
-
-\begin{equation}
-  d_w = d_j + (\ell p (1 - d_j))
-\end{equation}
-
-Where $ p $ is a constant scaling factor to adjust for the strength of common prefixes. In its usage here, $ p = 0.1 $ and $ l = 4 $.
 

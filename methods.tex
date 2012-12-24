@@ -1,38 +1,40 @@
-% how did I solve the problem?
-
-% FUNDAMENTALLY, doing synthesis on the shipping, with a set of simple rules to validate observations.
-% shipping as sensor network -- a synthesis.
-
 \section{Volunteered vessel information}
 
 %"In short, changing technology and economics are moving map production from a system of unified central production to a local patchwork, and the old radial system of dissemination is being replaced with a complex network."
 % -- Goodchild cartography paper, old and captures the change in production that is ongoing.
 
 %\citep{elwood2011researching} includes reference to these same layers, capturing data on 'core' data layers independently. Covers much of what Goodchild has discussed in terms of issues with VGI and its current 'cutting edge'
-Historically, ship data was collected both by governments for internal use, and by private corporations with the intent to sell. As elsewhere in the production of geographic facts, a shift is underway which moves the emphasis away from top-down primary data collection, to relying on observations from a multitude of sources \citep{goodchild2007citizens,elwood2011researching}. This new information has the potential to fundamentally change our use of the ocean.
+Historically, ship data was collected both by governments for internal use, and by private corporations for sale. As elsewhere in the production of geographic facts, a shift is underway which moves emphasis away from top-down data collection, toward volunteered data \citep{goodchild2007citizens,elwood2011researching}. Volunteered information has the potential to change our understanding of the ocean, by providing inexpensive and ubiquitous data.
 
 % Using two kinds of volunteered ship data - needs to be handled in special ways:
 % describe VOSclim data:
-Ship captains have long taken climate observations alongside known locations \citep{brohan2009marine}.  Building on this history, the Voluntary Observing Ship (VOS, \citealp{VOSOverview}) program collected a dataset spanning over 20 years and covering 10\textendash20\% of commercial traffic within each year. As the intention was to collect open-ocean climate observations, many of the records lack ship attribute information. % XXX making trajectory reconstruction difficult. 
-The data is contained within the greater International Comprehensive Ocean-Atmosphere Data Set (ICOADS, \citealp{woodruff2010icoads}), and though the data is both spatially- and statistically- biased \citep{Wang2007}, it serves as a useful training dataset on ship movements in the open ocean. Here, I use VOS records from 2003--2011, supplemented with opportunistic observations collected by the vessel tracking site SailWX \citep{SAILWX}. On the vessels that do report both attributes and locations, this information is captured at regular intervals, providing difficult to find open ocean observations.
+Ship captains have long taken climate observations alongside known locations \citep{brohan2009marine}.  Building on this history, the Voluntary Observing Ship (VOS, \citealp{VOSOverview}) program collects a dataset spanning over 20 years and covering 10\textendash20\% of commercial traffic within each year. As the intention of VOS is purely to collect open-ocean climate data, many participating ships remain anonymous, making reconstruction of ship movements difficult.  The data is contained within the International Comprehensive Ocean-Atmosphere Data Set (ICOADS, \citealp{woodruff2010icoads}), and though the data is both spatially- and statistically- biased \citep{Wang2007}, it serves as a useful training dataset on ship movements in the open ocean. Here, I use VOS records from 2003--2011, supplemented with opportunistic observations collected by the vessel tracking site SailWX \citep{SAILWX}. Many vessels report both attributes and locations at regular intervals, providing difficult to find open ocean observations.
 % XXX: what other data does SailWX also include? YOTREPS? what else?
 
 % describe AIS data
-The Automatic Identification System (AIS) \citep{no20041028,Tetreault2002} was developed to improve maritime safety and prevent collisions, by providing mariners local situational awareness (Figure \ref{fig:ais-overview}). By locating the ships via global positioning satellite (GPS) fix, and broadcasting the location alongside other attributes (Table \ref{table:ais-broadcast-attributes}) regularly via VHF transceiver, mariners gain real-time local traffic, invaluable in inclement weather or rescue operations \citep{Itu-r2010}.  The International Maritime Organization (IMO) mandates that all ships $\geq\negthickspace 150$ gross tonnage (GT) or ships bearing paid passengers carry AIS units \citep{solas}, which has lead to approximately 200,000 ships being outfitted with AIS equipment, including all licensed tankers, cargo ships and passenger vessels. Because the intent was to improve maritime safety, the system uses well-understood VHF radios, broadcasting to about 40km between ships. Since the system's implementation, land-based users, including ports, maritime professionals and amateurs, have set up VHF antennae, providing low-cost local ship traffic data at a range of up to 100km. Numerous sites now provide real-time feeds, such as MarineTraffic \citep{MarineTraffic} and SailWX, aggregating the records from many land-based antennae (and more recently, satellite feeds) and displaying them over both web maps and via Google Earth. These sites constantly augment their networks by providing in-depth data to those willing to set up AIS receiving stations in geographic areas not yet covered.
+The Automatic Identification System (AIS) \citep{no20041028,Tetreault2002} was developed to improve maritime safety by providing mariners local situational awareness (Figure \ref{fig:ais-overview}). By locating the ships via global positioning satellite (GPS) fix, and broadcasting vessel location alongside its attributes (Table \ref{table:ais-broadcast-attributes}) via VHF transceiver, mariners gain real-time vessel traffic, invaluable in inclement weather or rescue operations \citep{Itu-r2010}.  The IMO mandates that all ships $\geq\negthickspace 150$ gross tonnage or ships bearing passengers carry AIS units \citep{solas}. This has led to approximately 200,000 ships being outfitted with AIS equipment, including all licensed tankers, cargo ships and passenger vessels. AIS uses well-understood VHF radios, broadcasting to about 40km between ships. Since the system's implementation, land-based users, including ports, maritime professionals and amateurs, have set up VHF antennae, providing low-cost local ship traffic data at a range of up to 100km. Numerous sites, such as MarineTraffic \citep{MarineTraffic} and SailWX, provide real-time feeds by aggregating the records from land-based antennae \& satellites, and sharing them with both web maps and Google Earth. These sites augment their networks by providing incentives to users willing to set up AIS stations in new areas.
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=100mm]{images/towers/drawing.pdf}
-  \caption{Automated Information System diagram. Ships communicate to one another via VHF broadcast. The same signals can be captured and stored by land- and satellite- based observers.}
+  \includegraphics[width=100mm]{figures/towers/drawing.pdf}
+  \caption[Automated Information System diagram]{Automated Information System diagram. Ships communicate to one another via VHF broadcast. The same signals can be captured and stored by land- and satellite- based observers.}
   \label{fig:ais-overview}
 \end{figure}
 
 \section{Data Collection}
 
-For this study, fifteen months of AIS data were collected, from November 2010--December 2011, aggregating records from three major online AIS providers: FleetMon, VesselTracker, and MarineTraffic. All three share Keyhole Markup Language (KML, \citeauthor{KML}) files, intended for Google Earth. Examining data availability (Figure \ref{fig:ais-coverage}) showed these providers had considerably different coverage. At ten minute intervals over the study period, I automated downloading these KML files of real-time ship traffic from each of the providers. I then parsed the files to extract each observation within the dataset, wrote a library to normalize differences between the providers, and inserted the results into a spatial database, (PostGIS, \citeauthor{ramsey2005postgis}), an extension providing support for OGC simple features \citep{OGCSimple} on top of the PostgreSQL \citep{postgresql} object-relational database engine). Over the study period, this provided 2.37 billion observations. By comparison, the earlier work by \cite{Halpern2008} relied on 2.58 million observations, and that of \cite{Kaluza2010} relied on 490,517 journeys. This many fold increase requires new methods for analysis, but rewards us with a view of shipping closer to reality. % XXX Oliver: Maybe give a by contrast and emphasize this a bit.  This is much much larger than typical ecological data (the entire eBird dataset is just under 100M observations) and is the key to the methodological challenge that led you to have to develop all sorts of contorted computation tricks.
-All our AIS observations include both ship location and time, and frequently include additional attributes (Table \ref{table:ais-broadcast-attributes}).  The VOS/SailWX dataset, consisting of 92.4 million records covering Feburary 1991--September 2011, was provided in a MySQL database dump, which was converted and imported into PostgreSQL. 
+For this study, fifteen months of AIS data (November 2010--December 2011) was collected, aggregating records from three major online AIS providers: FleetMon, VesselTracker, and MarineTraffic. All three share Keyhole Markup Language (KML, \citeauthor{KML}) files, intended for use with Google Earth. Examining data availability (Figure \ref{fig:ais-coverage}) showed these providers differed in coverage area. At ten-minute intervals over the study period, I automated downloading these KML files of real-time ship traffic. I then parsed the files to extract each observation within the KML document, wrote a library to normalize differences between the AIS providers, and inserted the results into a spatial database, (PostGIS, \citeauthor{ramsey2005postgis}), an extension that provides support for OGC simple features \citep{OGCSimple} on top of the PostgreSQL \citep{postgresql} object-relational database engine. Over the study period, this resulted in 2.37 billion observations. By comparison, earlier work by \cite{Halpern2008} relied on 2.58 million observations, and that of \cite{Kaluza2010} relied on 490,517 journeys. This manyfold increase requires new methods for analysis, but rewards us with a rich view of shipping. % XXX Oliver: Maybe give a by contrast and emphasize this a bit.  This is much much larger than typical ecological data (the entire eBird dataset is just under 100M observations) and is the key to the methodological challenge that led you to have to develop all sorts of contorted computation tricks.
+AIS observations include both ship location and time, and frequently include additional attributes (Table \ref{table:ais-broadcast-attributes}).  The VOS/SailWX dataset, consisting of 92.4 million records covering February 1991--September 2011, was provided in a MySQL database dump, which was converted and imported into PostgreSQL (Figure \ref{fig:record-workflow}).
 
-Augmenting these ship observations, ancillary data was identified to provide validation against the raw observations, which is described below.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=120mm]{figures/record-workflow.pdf}
+  \caption[Data fusion workflow]{Data fusion workflow.}
+  \label{fig:record-workflow}
+\end{figure}
+
+
+Augmenting these ship observations, ancillary data was identified to provide validation, described below.
 
 \subsection{Vessel attribute data}
 Vessel data, tabular lists of ships alongside attributes, was collected from both authoritative and crowd-sourced media (Table \ref{table:ships-data-sources}) from a variety of sources, useful in validating the attributes provided in both VOS and AIS observations. Sources include:
@@ -47,28 +49,27 @@ Vessel data, tabular lists of ships alongside attributes, was collected from bot
 \label{sec:land-sea-mask}
   A high resolution land-sea mask, derived from the Shuttle Radar Topography Mission (SRTM) Water Body Data (SWBD, \citealp{slater2006srtm}), classifies the world into either land or sea at three arcsecond resolution (\textasciitilde{}90m) for much of the world (56$^\circ$ S to 60$^\circ$ N). It was a by-product of the SRTM digital terrain project \citep{rabus2003shuttle}, and has the advantage that the data was collected over a very short period of time, increasing self-consistency.
 
-For the areas beyond that covered by SRTM, the Global Self-consistent, Hierarchical, High-resolution Shoreline Database (GSHHS, \citealp{wessel1996global}) was used, which is an amalgamation of publicly available shoreline data. This data is lower resolution than SWBD, but the vast majority of my observations come from within the SRTM study area. The transition zone between these two layers was manually corrected to make a single, consistent, high-resolution land-sea mask at three arc seconds.
+For the areas beyond that covered by SRTM, the Global Self-consistent, Hierarchical, High resolution Shoreline Database (GSHHS, \citealp{wessel1996global}) was used, an amalgamation of publicly available shoreline data. GSHHS is lower resolution than SWBD, but the vast majority of ship observations are within the SRTM study area. The transition zone between these two layers was manually corrected to make a single, consistent, high-resolution land-sea mask at a three arcsecond (\textasciitilde{}90m) resolution.
 
 \subsection{Other data}
 Port databases were collected, containing coordinates and berth details for ports globally \citep{Halpern2008,worldportindex}. Approximately 5,000 ports were identified % XXX oliver: provide a list of sources at a minimum [or just actually develop this data in a useful way.]
-from a range of volunteered and authoritative sources.  Approximate information on ship movement patterns was also collected, based on historical charts such as a CIA vessel movement chart from the Cold War~(Figure \ref{fig:cia-shipping-map}). The original ship model produced as part of the previous modeling effort \citep{Halpern2008} was helpful for comparison.
+from these two sources.  Qualitative ship movements was also collected, based on historical charts such as a Cold War era CIA chart~(Figure \ref{fig:cia-shipping-map}). The original ship model produced as part of a previous modeling effort \citep{Halpern2008} was also helpful for comparison.
 
 \section{Validation}
 
-The raw observations are full of caveats: because of inherent limitations in protocol design, there is no direct way of validating incoming data \citep{RaymondInPress}. % XXX oliver: what's a packet?
- As a result, many terrestrial locations have observations, including a particularly thick band centered around the prime meridian (Figure \ref{fig:ais-obs-nov-2011}). These records are more likely due to corruption of the longitude coordinate than reverence for Greenwich. Alongside transmission errors are operator error: the attributes which are sent alongside the time and position information are input by the mariners, and they may introduce errors in entry, or fail to update the attributes which change over time, such as the destination field. Each observation within this dataset is suspect, and the data is treated as guilty until proven innocent.
+The observations are full of caveats: because of limitations in the AIS protocol design, there is no direct way of validating incoming data \citep{RaymondInPress}.  As a result, many terrestrial locations have observations, including a particularly thick band centered around the prime meridian (Figure \ref{fig:ais-obs-nov-2011}). These records are more likely due to corruption of the longitude coordinates than a reverence for Greenwich. In addition to transmission errors are operator errors: attributes sent alongside the time and position information are input by the mariner. These attributes are often input incorrectly, or not updated for attributes which change over time, such as the destination field. Observations in this dataset are suspect, and the data is treated as guilty until proven innocent.
 
-While there are numerous problems with the data, the volume of data and the compiled ancillary datasets provide ways to use the data via correlation.  This improves accuracy and minimizes the observations required to build a model representation of the data. Two areas relevant to this problem are geographic data mining \citep{miller2009geographic}, and the recent work of \cite{goodchildli2012}. Here, I borrow the framework described in the latter work, and explore three avenues of quality assurance: crowd sourcing, social, and geographic approaches.
+While there are inherent sources of error within the data, the volume of data and the compiled ancillary datasets both allow us to validate observations. This validation improves accuracy and minimizes the observations required to build a model representation. Two areas relevant to this problem are geographic data mining \citep{miller2009geographic}, and the recent work of \cite{goodchildli2012}. Here, I borrow the framework described in the latter work, and explore three avenues of quality assurance: crowd sourcing, social, and geographic approaches.
 
 % XXX XXX XXX SHOULD I REMOVE THIS SECTION? SEEMS WEAK NOW THAT THE SURROUNDING MATERIAL IS IMPROVED.
 \subsection{Crowd-sourcing}
 % based (large volume of obs, multiple sources. Crowdsourced ref material)
 % XXX EXPAND EXPAND, talk about authority and what it means
-While \cite{goodchildli2012} found that crowd-sourcing was commonly inadequate for VGI, it can function when the domain is limited and the pool of expertise is vast. In one sense, crowd-sourcing becomes useful here when radio towers of differing quality receive records. Cross-referencing these sources provides an additionaly layer of consistency, and although this does not rely on citizen participation, it does minimize instrument error.
+While \cite{goodchildli2012} found that crowd-sourcing was commonly inadequate for VGI, it can function when the domain is limited and the pool of expertise is vast. In one sense, crowd-sourcing becomes useful here when radio towers of differing quality receive records. Cross-referencing these sources provides an additional layer of consistency, and although this does not rely on citizen participation, it does minimize instrument error.
 
 \subsection{Social}
 % XXX should we just axe this whole section?
-Mariners provide regular updates to online services, so attribute data from these sources tends to be high. The ship operators frequently have the best working knowledge of a ships' vitals, much like someone who lives in a specific neighborhood is likely to have a better understanding of local geography. The ship operators can then communicate the data up to various shipping related aggregation sites, who operate the higher levels of the hierarchy, and rely on a group of trusted users for vetting incoming updates.
+Mariners provide regular updates to online services, so attribute data from these sources tends to be high. The ship operators frequently have the best working knowledge of a ships' vitals, much like someone who lives in a specific neighborhood is likely to have a better understanding of local geography. The ship operators can then communicate the data up to various shipping-related aggregation sites, who operate the higher levels of the hierarchy, and rely on a group of trusted users for vetting incoming updates.
 
 \subsection{Geographic}
 % XXX this is BLEH right now, make it not crap.
@@ -80,48 +81,29 @@ I also impose basic validation on the geometries by referencing other geographic
 For many classes of vessels, ships move between ports. Ships exhibiting movement patterns inconsistent with this goal are suspect. % XXX Oliver: I don't cause a lot of ecological disruption when I go traipsing through downtown, but if I go trampling through the Los Padres, I can cause a lot of harm.  I'd say people disproportionately occupy developed areas, yet there is a lot of ecological harm caused by outliers.
 However, there are other nodes which require inclusion, such as ballast water exchange points, like one located 100 nautical miles (nm) offshore of California (Figure \ref{fig:cal-cargo}), and canals, which provide a means of ships to move between otherwise distant locations. However, this remains a powerful validation technique: because the high resolution data is clustered around the shores with strong coverage at the ports, the data contains a disproportionate look at the vessels in transit between this constrained set of locations.
 
-% XXX oliver: Cool, power-law, but how exactly do you use this to filter?  Is there more than just screening by the theoretical maximum?
-As in many large datasets, the distribution of observations per ship follows an approximate power-law distribution. Using the raw number of observations received in our 15 month window provides another filter. The peak in the kernel density estimation (Figure \ref{fig:obs-per-vessel-log}) is seen around $10^4$ observations, with a clear drop-off after $10^5$ which is consistent with the theoretical maximum (one observation in every sample) of about $6.8 \times 10^5$.
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=100mm]{figures/obs-per-vessel-log.pdf}
-  \caption{Number of observations per vessel, log scaled.}
-  \label{fig:obs-per-vessel-log}
-\end{figure}
-
-
 % highlight importance of geometry + ATTRIBUTES. one alone is insufficient, both can be powerful.
 
 %An aside on 'ships' - ships can have multiple callsigns, MMSI idenfiers, and other data which ideally would locate a specific vessel. We handle this ambiguity methods -- a full version of this can go into supplementals, but worth covering here, because we can map \textbf{type} from observed behavior -- fishing vs. cargo vs. cruise is all obvious when looking at the movement patterns (fold into above 'filtering process' section)
 
 % XXX Oliver: This reads like you categorized ships based on their movement patterns and attribute data, but I think you're really pointing out that different types of ships have different types of movement patterns.
-Another important point is that while ship attributes provide us some details as to their nature, categories (such as tanker or cargo) are not based purely on attributes, but also include movement patterns. This is a distinguishing characteristic between the data, as different classes of vessel show distinct movement patterns, which is useful both in validation, and as an output product, since vessel classes have differing effects and interactions. Because this data is stored in a spatial database, I link derived representation % XXX Oliver: what's a dervied representation?
-back to the records that formed it. While this is a common feature of spatial databases, it is an important trait since data are often provided as simple 'end products' without the provenance to understand its limitations.
-
-% XXX above is good, expand it
+while ship attributes provide information for performing basic vessel classification, categories (such as tanker or cargo) are not based purely on attributes, but also rely on movement patterns. Vessel types show distinct movement patterns, which is useful both in validation, and as an output product, as vessel effects differ by vessel class. By using a spatial database, derived representations based on filtering and validation can be linked back to the records that formed it. While this is a common feature of spatial databases, it remains important as data are often provided as simple end products without the provenance needed to understand its limitations.
 
 %Can link data representations all the way back to attributes of raw data [note: this is true in many spatial databases, right? what makes it special here?]
 % - often a requirement but only get 'end products' instead without detailed attributes, or conversely all details on one ship but no way to move between realms fluidly.
 
 \subsection{Data Representations}
 
-% It is necessary to have multiple representations of the data - the data model must flow from the question asked (goodchild, also anything in ebook on GISci?)
-
-After filtering and validating the data as described, I build data representations which bring us closer to answering some of the problems raised in the introduction. Frequently there is no single optimal representation of data, but instead a set of representations which, when matched to particular uses, can be combined to provide insight.
+% XXX rewrite this, god damn I suck at writing.
+After filtering and validating the data, I build data representations which bring us closer to answering some of the problems raised in the introduction. Frequently there is no single optimal representation of data, but instead a set of representations which, when matched to particular uses, can be combined to provide insight.
 
 Here, I look at how maintaining both discrete object and continuous fields representations (Figure \ref{fig:representation-in-gis}) allows us to address questions about shipping, including its ecological effects. While the point data alone is too simple for making predictions related to these phenomena, incorporating too much complexity risks making computation infeasible~\citep{de2007geospatial}.
 
 % Some of the effects. link up how specific effects could be monitored by our different representations. Can't just use points to predict phenomena of this nature, but can't incorporate full complexity of reality either; chosen representations are a compromise between those two extremes.
 
-% As in \ref{fig:representation-in-gis}, we can keep track of the ships in a discrete object representation, and after filtering the observations, converting the individual ship locations into movement tracks.
-
-% Merger of data - which can give a single representation of the data
-
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=160mm]{figures/representation-in-gis.pdf}
-  \caption{Spatial abstractions, this work's specific {\color{DBlue} additions in blue}. Adopted from \cite{Bivand2011}}
+  \includegraphics[width=155mm]{figures/representation-in-gis.pdf}
+  \caption[Spatial Abstractions]{Spatial abstractions, this work's specific {\color{DBlue} additions in blue}. Adopted from \cite{Bivand2011}.}
   \label{fig:representation-in-gis}
 \end{figure}
 
@@ -133,22 +115,9 @@ Here, I look at how maintaining both discrete object and continuous fields repre
 % Store the raw observations in a spatial database (PostGIS), use parallelized code to quickly aggregate the results.
 \subsection{Ship Types}
 
-% XXX open problem: what designates a 'ship'?
-%   Hal: `The biggest flaw is that, long ago, I assumed one ship == one callsign. It turns out, of course, that a single ship can have multiple callsigns (due to sale or reflagging), and that a single callsign can be assigned to multiple ships (e.g. NOAA, and also the Queen Mary/Queen Mary II). So the db really needs its own internal ship UID.`
+% see fleet-size-and-naming.txt for details on the ship validation issues.
 
-%  Hal, on 'using MMSI + IMO + Callsign'--  Yeah, that still misses reflagging. I think what I will end up with is a "find-or-create ship with IMO,MMSI,Callsign", together with a manual process for me to force the database to combine two different ship UUID's that actually refer to the same ship. Even that isn't enough, because we see misprogrammed AIS units with dummy MMSI's, and fleetwide MMSI's."
-
-%    ... Almost want a probabilistic model of what ship it is based on the information we do have reliably, and cross-validation with the various online databases... perhaps even validation with Equasis? Could do this for a small subset of the ships, but clearly not them all.
-
-% XXX   - create a ship 'UUID' like feature which incorporates the different aspects: IMO, MMSI, Callsign, Name... we care about specific _ships_ not necessarily what line they're running under or other changes, though this is useful information for certain classes of questions.
-
-%  - collapse all redundant columns from the database once we have this hybrid observation model and can safely assign individual records to a particular ship (instead of a guess based on say, MMSI, which may be misprogrammed).
-
-% XXX mention the ontology work in this space: there are people thinking about this stuff, but it isn't where we need it to be.
-% \cite{Vries2009}
-% IALA Guideline No. 1028 On The Automatic Identification System (AIS)
-
-An open problem within the maritime community is: what designates a ship? Ships can be classified on a variety of dimensions, including propulsion form, hull material, function and many others. Ontologies have been in development to solve this problem \cite{Vries2009}, but here I focus on use: what is the primary activity the vessel is engaged in? Starting with the initial classes provided by our data sources, I collapsed them into nine major functional groups (Table \ref{table:ships-by-type}). Because the full attributes of each vessel are retained, and frequently include multiple type labels, it is possible to break this down further for future analyses, but these broad classes served well for classifying distinct movement patterns.
+An open problem within the maritime community is how to designate ship types. Ships can be classified on a variety of dimensions, including: engine type, hull material, vessel function, and size. Ontologies have been developed to address this problem, but remain incomplete \citep{Vries2009}. Here, I focus on use: what is the primary activity the vessel is engaged in? Starting with the classes provided by our sources, I collapsed them into nine major functional groups (Table \ref{table:ships-by-type}). Because the full attributes of each vessel are retained, and frequently includes multiple type labels, it is possible to break this down further for future analyses, but these broad classes served well for classifying distinct movement patterns. A full list of vessel classes is provided in Appendix \ref{table:ship-class-breakdown}.
 
 % XXX Oliver: seems like a different question than figuring out what class the ship is in.
 Identifiers -- what ship is this -- similarly poses a problem. By incorporating information from many different identifiers and focusing on those less changeable, such as IMO number and radio callsign, we increase the chances of valid matches. But additional attributes such as the Maritime Mobile Service Identity (MMSI), and vessel name are often equally useful, particularly because they are broadcast alongside each AIS record. Vessel operators may fail to maintain this information, so it becomes important to cross validate the attributes to gain reasonable match rates.
@@ -160,7 +129,7 @@ Identifiers -- what ship is this -- similarly poses a problem. By incorporating 
 \begin{table}[htbp]
   \begin{tabular}{rrrrrr} %{\centering\arraybackslash}p{2cm}>{\centering\arraybackslash}p{5cm}>{\centering\arraybackslash}p{9cm}}
     \hline
-    Type & Vessels \textit{(AIS)} & Vessels \textit{(VOS)} & fleet size & coverage (\%) & observations (M) \\
+    \small{Type} & \small{Ships \textit{(AIS)}} & \small{Ships \textit{(VOS)}} & \small{fleet size} & \small{coverage} (\%) & \small{observations} (M) \\
     \hline
     Cargo & 25214 & 5838 & 33392\textsuperscript{1} & 75.6 & 665.45 \\
     Tanker & 9758 & 2375 & 14068\textsuperscript{1} & 69.4 & 264.42 \\
@@ -172,7 +141,7 @@ Identifiers -- what ship is this -- similarly poses a problem. By incorporating 
     Other & 9507 & 1400 & -- & -- & 4.75 \\
     Authority & 656 & 55 & -- & -- & 1.44 \\
   \end{tabular}
-  \caption{Summary of analyzed ship data\\
+  \caption[Summary of analyzed ship data]{Summary of analyzed ship data\\
   1. \cite{Equasis2011} 2. \cite{westwood2001global} 3. \cite{FAOfishing}.}
   \label{table:ships-by-type}
 \end{table}
@@ -180,18 +149,13 @@ Identifiers -- what ship is this -- similarly poses a problem. By incorporating 
 % NOTE: the FAO estimates the _full_ fishing fleet size at 4 million vessels, the size clearly has an important effect.
 % see: fleet-size.txt for details on this table.
 
-
 \subsubsection{Raw point data}
 
-% \begin{itemize}
-%   \item geoatom with time $\langle x,t,z \rangle$
-%   \item formalize what these observations mean
-%   \item apply filtering using space-time + attributes
-% \end{itemize}
+AIS records are sampled at 600 second intervals (10 minutes). For most ship classes, this sample rate retains the movement patterns, and is a similar sample rate to studies using aggregation to remove noise, like \citep{Vries2009}, which uses piecewise aggregate approximation at a 300 second interval to ``strike a good balance between capturing the general movement and ignoring noise''. % XXX NOTE: this is a filtering technique, so it isn't a direct mapping onto the reduced fidelity data we're using.
+% XXX XXX XXX Oliver: I'm not sure why this paragraph is here.
+% The spatial databases' historical focus was on accuracy \citep{goodchild1989accuracy}. This showed the value in retaining raw observations, both by minimizing lossy transformations, and providing multiple models of the same data to retain consistency with reality.
+% XXX XXX XXX ADD MORE STUFF HERE.
 
-Records are sampled at 600 second intervals (10 minutes). For most ship classes, this sample rate retains the movement patterns, and is a similar sample rate to studies using aggregation to remove noise, like \citep{Vries2009}, which uses piecewise aggregate approximation at a 300 second interval to ``strike a good balance between capturing the general movement and ignoring noise''. % XXX NOTE: this is a filtering technique, so it isn't a direct mapping onto the reduced fidelity data we're using.
-% XXX Oliver: I'm not sure why this paragraph is here.
-The spatial databases' historical focus was on accuracy \citep{goodchild1989accuracy}. This showed the value in retaining raw observations, both by minimizing lossy transformations, and providing multiple models of the same data to retain consistency with reality.
 
 \subsubsection{Tracks}
 
@@ -201,8 +165,8 @@ any beyond the surface of the earth. I further require that to be considered a t
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=80mm]{images/measurement-theory-for-time-geography-prism.png}
-  \caption {A simple space{\textendash}time prism, as in \citep{Miller2005}; original from \citep{Wu2002}}
+    \includegraphics[width=80mm]{figures/time-geography-prism.pdf}
+  \caption[A simple space{\textendash}time prism]{A simple space{\textendash}time prism; based on \citep{Wu2002}}
   \label{fig:time-prism}
 \end{figure}
 
@@ -226,15 +190,6 @@ For each cell, the output density $s$ is calculated as the standardized equal-we
  s = \frac{R_{AIS}}{max(R_{AIS})} + \frac{R_{VOS}}{max(R_{VOS})} 
 \end{equation}
 % XXX Oliver: Why can't you calculate actual average speed using segment lengths?  Some jerk is going to ask. <- self-fulfilling
-
-\begin{figure}[h!]
-  \centering
-    \includegraphics[width=120mm]{figures/cargo-lanes-eu-cropped.png}
-  \caption {Cargo density grid, generated by combining AIS and VOS records.}
-  \label{fig:eu-cargo-density}
-\end{figure}
-
-% Bresenham's line algorithm used for rasterizing the tracks. Only counted a ship moving through a single cell once to get movement patterns v. dockage
 
 \paragraph{Speed density estimations of ships by ship type}
 
@@ -260,11 +215,6 @@ Average speed per cell was calculated as sum speed over all observations $R_{AIS
 
 %Best thing here is Kaluza but they totally lost the geography in transit -- can produce a middle ground model which has geographic nodes and edges, but still retains the rigour of the network model. Can get both!
 
-% ...
-
-% Paragraph from one of my position papers --
-% One model I’m particularly interested in is hybridized network models using tools like NetworkX, which have the attractive property of allowing mixed field/object representations of the same data simultaneously, hence escaping the common limits of networks as mentioned in ? of every link or edge requiring a discrete value. By imbuing a network model with object-oriented features, some of the challenges I’ve been having representing my ship traffic data vanish. An- other advantage of manipulating graphs as a primitive is their widespread support, including general purpose graph databases which are particularly taking off in the semantic space.
-
 % another pp from a position
 % This becomes particular important as the tools of spatial thinking extend across disciplinary boundaries, both in the social and physical sciences (Goodchild and Janelle, 2010; Tilman and Kareiva, 1997). Other domains, such as ecology and economics, are coming to terms with the fact that their historical approaches to keeping simple models (and by extension, limiting model scope to their domain) ignores important spatial context which naturally arises at the unit of analysis (Tilman and Kareiva, 1997; Krugman, 1991).
 
@@ -285,7 +235,7 @@ By combining authoritative data from a variety of sources (Table \ref{table:ship
       ITU\textsuperscript{3} MARS\textsuperscript{4} & ITU & 372183 & 75928 & {\footnotesize name, IMO, MMSI, callsign, class, owner, gross tonnage}\\ 
      VesselTracker & VT & 126534 & 83372 & {\footnotesize name, IMO, MMSI, callsign, class, length}
   \end{tabular}
-  \caption{Ship data sources.\\ 
+  \caption[Ship data sources]{Ship data sources.\\ 
   1. Federal Communications Commission \\ 
   2. Universal Licensing System \\
   3. International Telecommunication Union \\ 
@@ -321,16 +271,20 @@ I built a probabilistic model which evaluated all possible pairwise combinations
      DS & FCC & 95 & callsign & equal & 99 \\
         &     &    & name & Jaro-Winkler& 1 \\
   \end{tabular}
-  \caption{Ship record linkage methods used. \\
+  \caption[Ship record linkage methods]{Ship record linkage methods used. \\
     \textsuperscript{1} Jaro-Winkler distance \citep{winkler1990string}: length $l = 4$ and scaling factor $p = 0.1$}
   \label{table:ships-record-linkage-methods}
 \end{table}
 
 
-For most attributes, either the equal fields (both values are the same) or the Jaro-Winkler distance metric were used. Jaro-Winkler has useful properties for this data: it is effective on both numeric and textual data, and is particularly good in picking up the kinds of errors inherent in user provided data sources such as those used in this study. A study of string comparison metrics found it to be both efficient, and effective, with a high match rate on diverse data~\citep{Cohen2003}. The equations used in the Jaro-Winker distance are described in (\ref{sec:record-linkage-appendix}).
+For most attributes, either the equal fields (both values are the same) or the Jaro-Winkler distance metric were used. Jaro-Winkler has useful properties for this data: it is effective on both numeric and textual data, and is particularly good in picking up the kinds of errors inherent in user provided data sources such as those used in this study. A study of string comparison metrics found it to be both efficient, and effective, with a high match rate on diverse data~\citep{Cohen2003}. The equations used in the Jaro-Winker distance are described in Appendix \ref{sec:record-linkage-appendix}.
 
 % XXX Oliver: It seems like you would do this first, to screen out stuff you don't need to waste time trying to link and possibly to develop a training dataset based on your data.
-Once each combination between two sources was finished running in FRIL, a second rule-based method was developed to capture valid pairings initially missed. If vessels had equality in any two attributes of the set ${MMSI, callsign, name}$, if callsign and vessel length matched, or if the IMO number provided was a valid seven digit number, then the pair was marked as linked. This was tested against a number of pairs manually, and successfully caught many of the initially missing yet valid linkages.
+Once each combination between two sources was finished running in FRIL, a second rule-based method was developed to capture valid pairings initially missed. If vessels had equality in any two attributes of the set: 
+\begin{equation}
+{MMSI, callsign, name}
+\end{equation}
+If callsign and vessel length matched, or if the IMO number provided was a valid seven digit number, then the pair was marked as linked. This was tested against a number of pairs manually, and successfully caught many of the initially missing yet valid linkages.
 
 \subsection{Linkage Validation}
 
@@ -350,11 +304,9 @@ Based on this, a set of rules was developed to assign a validation score and pro
 \begin{figure}[h!]
   \centering
     \includegraphics[width=90mm]{figures/validation-scores-hist.pdf}
-  \caption {Validation scores, bin width=0.3}
+  \caption[Linkage validation scores]{Linkage validation scores, bin width=0.3}
   \label{fig:validation-score-hist}
 \end{figure}
 
-These scores were then used to select valid vessels, and to assign vessels to the nine classes. Only scores exceeding zero were used for the movement models. Finally, though all these steps give us good self-consistency, I wanted to test against even better sources.  % TODO: perform data validation on these observations with Equasis. Sample a handful of records from each class, then perform the validation.
-While some of our input datasets are authoritative, the best available data remains commercial. A a 1\% sample of the records were compared to those provided in Equasis \citep{Equasis2011}, which includes validated records from the commercial fleet. This showed that, after cross-linking, the validation score showed good correspondence with true vessels, though only comparisons to commercial classes of vessels were possible.
-
-% XXX built spatial indexes and reordered the data on disk to match for performance.
+Only those vessels with validation scores exceeding zero were used in the movement models, and the validation class provides our chosen class for each validated vessel. Finally, though all these steps give us good self-consistency, I wanted to test against even better sources.  % TODO: perform data validation on these observations with Equasis. Sample a handful of records from each class, then perform the validation.
+While some of our input datasets are authoritative, the best available data remains commercial. A 1\% sample of the records were compared to those provided in Equasis \citep{Equasis2011}, which includes validated records from the commercial fleet. This showed that, after cross-linking, the validation score showed good correspondence with true vessels.
