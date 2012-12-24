@@ -31,8 +31,8 @@
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1022"
-     inkscape:window-height="1028"
-     inkscape:window-x="899"
+     inkscape:window-height="715"
+     inkscape:window-x="342"
      inkscape:window-y="24"
      inkscape:window-maximized="0" />
   <defs
@@ -21963,13 +21963,9 @@
        sodipodi:linespacing="125%"
        transform="translate(0,308.2677)"><tspan
          sodipodi:role="line"
-         id="tspan47786"
          x="260"
-         y="624.09448">Spatial Database</tspan><tspan
-         sodipodi:role="line"
-         x="260"
-         y="674.09448"
-         id="tspan47788">1.5TB</tspan></text>
+         y="624.09448"
+         id="tspan47788">Spatial Database</tspan></text>
     <text
        sodipodi:linespacing="125%"
        id="text41238-4-4-9"
