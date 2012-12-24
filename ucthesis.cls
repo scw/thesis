@@ -1537,7 +1537,7 @@
 \topmargin 0.25in
 
 %\oddsidemargin 0.5in    % plus 1in from left edge of paper
-\oddsidemargin 0.625in
+\oddsidemargin 0.5in
 
 %\evensidemargin 0.25in  % for double-sided printing; plus 1in from left
 \evensidemargin 0.125in
