@@ -1,0 +1,51 @@
+
+Organization
+ - Background on shipping
+ - Fusing the volunteered data
+ - Cover relevant ecological linkages: strikes, noise, groundings [ballast, pollution
+ - Future: networks, simplified representations of the data
+
+Setting the stage
+ - Why Shipping? Halpern 2008 work characterized cumulative human impacts to marine environment: 17 habitat types 20 threats. Of the 20 threats, fishing, climate change and shipping are the major three contributors to the global scores.
+ - Fishing and climate change have received much of the scientific focus, but shipping should be addressed and accounted for as well.
+
+What is Shipping?
+ - Primarily, trade: 90% of world goods, 1.8T of goods shipped each year. 
+ - Baltic dry index is a leading economic indicator
+ - The importance of shipping means that data related to shipping is valuable
+ - Leaves a gap in the data picture for scientific inquiry
+ 
+What are the ecological effects?
+ - Invasive Species
+ - Emissions
+ - Direct Pollution
+
+ + Ship Strikes
+ + Noise Pollution
+ + Groundings
+
+Shipping in Context
+ - Shipping is also important in a broader context, as move toward holistic management of the oceans. To do effective Ecosystem-based management, we need foundational data on anthropogenic use, and we have little information on shipping.  
+
+What data exists?
+ - VOS: describe
+ - AIS: describe
+ - records on individual vessels
+
+What does this work do?
+ - Links AIS and VOS data to individual vessels.
+ - focus here on producing per-class vessel movement estimates.
+
+How?
+ - Use record linkage to build a robust database of known vessels
+ - fuzzy reasoning to merge records
+ - map these linked records to our observations
+ - build TRACKS of observed movement patterns for individual vessels.
+
+Lots of traits used to filter and improve data:
+ - speed
+ - on / off land
+ - combine attributes to validate those vessels (and observations) we actually want to process.
+ - 
+
+
