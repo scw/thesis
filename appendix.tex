@@ -1,26 +1,9 @@
 %\appendix{}
 %\gdef\thesection{Appendix \Alph{section}}
 
-\chapter{Movement Modeling}
-\label{sec:movement-modeling-appendix}
+\chapter{Method Details}
 
-% XXX copy and paste job, include details here.... tools used? DETAILED APPROACH.
-Each vessel track was rasterized to both an 90 arcsecond grid (\textasciitilde{}5.5km at the equator) and an equal area grid in the Hobo Dyer projection (Figure \ref{fig:eu-cargo-density}). The latter case assures that the density function is computed on grid cells representing the same area for each cell, unlike the geographic grid where area varies by latitude. A vessel is counted only once for each cell it passes through, as the focus here on overall movement patterns, and this criteria helps de-emphasize vessels with limited movement. Each raster vessel track was combined using simple map algebra to produce density maps for both the AIS and VOS data, for each of our vessel classes. % XXX Oliver: A passing cargo ship is comparable to a ferry crisscrossing the same spot continuously every day?  Not that you should do this, but somebody might wonder.
-
-Maps produced in ArcGIS and Quantum GIS.
-
-gdal_rasterize did the rasterization step
-
-gdal_add, custom python code combined the results
-
-paralellized in Python.
-
-% Bresenham's line algorithm used for rasterizing the tracks. Only counted a ship moving through a single cell once to get movement patterns v. dockage
-
-% XXX built spatial indexes and reordered the data on disk to match for performance.
-
-
-\chapter{Record Linkage}
+\section{Record Linkage}
 \label{sec:record-linkage-appendix}
 
 The Jaro-Winkler formula is defined in two steps. First, The Jaro distance, $d_j $, is defined as:
@@ -55,33 +38,97 @@ The second component, added by Winkler, preferentially weights strings which mat
 Where $ p $ is a constant scaling factor to adjust for the strength of common prefixes. In its usage here, $ p = 0.1 $ and $ l = 4 $.
 
 
+\section{Observation Filtering}
+% XXX XXX XXX oliver: Cool, power-law, but how exactly do you use this to filter?  Is there more than just screening by the theoretical maximum?
+% XXX just cut these? move to appendix?
+As in many large datasets, the distribution of observations per ship follows an approximate power-law distribution. Using the raw number of observations received in our 15 month window provides a simple filter. The peak in the kernel density estimation (Figure \ref{fig:obs-per-vessel-log}) is seen around $10^4$ observations, with a clear drop-off after $10^5$, which is consistent with the theoretical maximum (one observation in every sample) of about $6.8 \times 10^5$.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=80mm]{figures/obs-per-vessel-log.pdf}
+  \caption[Observations per vessel]{Observations per vessel, log scaled.}
+  \label{fig:obs-per-vessel-log}
+\end{figure}
+
+\section{Movement Modeling}
+\label{sec:movement-modeling-appendix}
+
+% XXX From Jano: provide more detail on what actually was done. Code, whatever, fine -- but include details. It can be in an appendix, but need to include information like cell size, processing techniques, and other details of what the heck you actually did. [Move some stuff from the methods into this appendix].
+% XXX copy and paste job, include details here.... tools used? DETAILED APPROACH.
+
+Each vessel track was rasterized to both an 90 arcsecond grid (\textasciitilde{}5.5km at the equator) and an equal area grid in the Hobo Dyer projection (Figure \ref{fig:eu-cargo-density}). The latter case assures that the density function is computed on grid cells representing the same area for each cell, unlike the geographic grid where area varies by latitude. A vessel is counted only once for each cell it passes through, as the focus here on overall movement patterns, and this criteria helps de-emphasize vessels with limited movement. Each raster vessel track was combined using simple map algebra to produce density maps for both the AIS and VOS data, for each of our vessel classes. % XXX Oliver: A passing cargo ship is comparable to a ferry crisscrossing the same spot continuously every day?  Not that you should do this, but somebody might wonder.
+
+% XXX gdal_rasterize did the rasterization step
+
+% gdal_add, custom python code combined the results
+
+% paralellized in Python.
+
+% Bresenham's line algorithm used for rasterizing the tracks. Only counted a ship moving through a single cell once to get movement patterns v. dockage
+
+% XXX built spatial indexes and reordered the data on disk to match for performance.
+
+
 
 \chapter{Tables}
 
 \begin{table}[htbp]
+  \caption[AIS broadcast attributes]{AIS broadcast attributes. Update frequency depends on ship speed, but varies between a minimum of a record every 2 seconds for quickly moving vessels, to once per 3 minutes for moored vessels. Additional attributes are available, but infrequently used.}
   \begin{tabular}{lr}
+    \hline
     Attribute & Accuracy \\
     \hline
     Location (fixed from GPS signal) & $\simeq$10 meter accuracy) \\
-    Timestamp (on broadcast) & $\simeq$100 ms \textit{radio transmission \& processing latency}\\
+    Timestamp (on broadcast) & $\simeq$100 ms \textit{transmission \& processing}\\
     Name \\
     Call Sign \\
     Maritime Mobile Service Identity (MMSI) \\
     Heading \\
     Speed \\
-    Destination & \textit{rarely valid}
+    Destination & \textit{often incorrect}
   \end{tabular}
-  \caption[AIS broadcast attributes]{AIS broadcast attributes. Update frequency depends on ship speed, but varies between a minimum of a record every 2 seconds for quickly moving vessels, to once per 3 minutes for moored vessels. Additional attributes are available, but infrequently used.}
   \label{table:ais-broadcast-attributes}
 \end{table}
 
+% table describing the record linkage technique used for each data source
+% SOURCE: record-linkage/FRIL/config/*.xml
+\begin{table}[htbp]
+  \caption[Ship record linkage methods]{Ship record linkage methods used.}
+  \ssp
+  \begin{tabular}{rrrlrr}
+    \hline
+    Source $A$ & Source $B$ & acceptance level & column & distance metric & weight \\
+    \hline
+     DS & ITU & 92 & callsign & Jaro-Winkler\textsuperscript{1} & 50 \\
+        &     &    & MMSI & equal & 40 \\
+        &     &    & name & Jaro-Winkler & 40 \\
+     DS &  VT & 85 & callsign & Jaro-Winkler & 60 \\
+        &     &    & IMO & Jaro-Winkler & 20 \\
+        &     &    & name & Jaro-Winkler & 20 \\
+    FCC & ITU & 85 & callsign & Jaro-Winkler & 95 \\
+        &     &    & name & Jaro-Winkler & 5 \\
+    FCC &  VT & 95 & callsign & Jaro-Winkler & 66 \\
+        &     &    & name & Jaro-Winkler & 5 \\
+        &     &    & MMSI & Jaro-Winkler & 24 \\
+        &     &    & length & equal & 5 \\
+     VT & ITU & 80 & callsign & Jaro-Winkler & 20 \\
+        &     &    & MMSI & Edit Distance & 30 \\
+        &     &    & name & Jaro-Winkler & 10 \\
+        &     &    & IMO & Jaro-Winkler & 40 \\
+     DS & FCC & 95 & callsign & equal & 99 \\
+        &     &    & name & Jaro-Winkler& 1 \\
+  \end{tabular}
+  \\
+  \textsuperscript{1} Jaro-Winkler distance \citep{winkler1990string}: length $l = 4$ and scaling factor $p = 0.1$
+  \label{table:ships-record-linkage-methods}
+\end{table}
+
+
 % had this as a list, also some hackery with unnesting class data:
 % select distinct(trim(both from unnest(class))), count(*) from clean.ships where validation_class = 'tanker' and validation_score > 0 and obs_count > 0 GROUP BY class ORDER BY btrim DESC;ships=# select distinct(trim(both from unnest(class))), count(*) from clean.ships where validation_class = 'tanker' and validation_score > 0 and obs_count > 0 GROUP BY class ORDER BY btrim DESC;
-
 \begin{longtable}{l|l|l}
+
 \hline \multicolumn{1}{|c|}{\textbf{Type}} & \multicolumn{1}{c|}{\textbf{Sub-type}} & \multicolumn{1}{c|}{\textbf{Vessels}} \\ \hline 
 \endfirsthead
-
 %\multicolumn{3}{c}%
 %{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
 \hline \multicolumn{1}{|c|}{\textbf{Type}} &
@@ -136,33 +183,83 @@ Where $ p $ is a constant scaling factor to adjust for the strength of common pr
   authority & sar-vessel & 699 \\
             & search and rescue vessel & 609 \\
             & rescue vessel & 102 \\
-  \caption[Detailed ship classes]{Detailed ship class breakdown. Classes come from observationsgT}
+  \caption[Detailed ship classes]{Detailed ship classes, derived from observations.}
   \label{table:ship-class-breakdown}
 \end{longtable}
 
-%\newpage
-%\chapter{Source Code}
-%\label{sec:source-code}
+\chapter{Software}
+\label{sec:software}
 
 % include SOME python code here -- our AIS parser, what else?
 % steps: download AIS
-% parse ais
+% parse AIS
 % insert AIS into DB, formalize
 % download & parse ship databases
 
-%All code used to generate the project is available at https://github.com/scw/ais-kml-parser. The full code is omitted from this document, due to length restrictions.
+This work would not have been possible without extensive contributions from others in the form of software, both commercial and open source. An overview of the software used in the project is provided, and the code produced is available at https://github.com/scw/ais-kml-parser. 
 
-%\texttt{aiskml.py}:
-%\inputminted[linenos,
-%             numbersep=5pt,
-%             frame=lines,
-%             framesep=2mm]{r}{../code/kml/aiskml.py}
+To store the raw observations, \textsf{SQLite} was used for rapid development, but the bulk of the observations were stored in the object-relational database \textsf{PostgreSQL}, where the majority of the analysis was carried out using either native SQL or with the spatial extension \textsf{PostGIS}. The \textsf{GDAL} library was used extensively for transforming both raster and vector data. Record linkage was performed using \textsf{FRIL}, with some record linkage integrated into the database using \textsf{pg\_similarity}, and in \textsf{Python} using the \textsf{jellyfish} module. Integration and data processing used \textsf{Python}, which combines a wide base of environments within a single language. \textsf{R} was used to perform statistical analyses and summarize results. \textsf{GRASS} was used to compute model outputs and spatial statistics, and maps were produced in \textsf{ArcGIS} and \textsf{Quantum GIS}.
 
-%\texttt{parsekml.py}:
-%\inputminted[linenos,
-%             numbersep=5pt,
-%             frame=lines,
-%             framesep=2mm]{r}{../code/kml/parsekml.py}
+\begin{table}[htbp]
+  \caption[Software used]{Software used, version details}
+  \ssp
+  \begin{tabular}{rr}
+    \hline
+    Software package & version \\
+    \hline
+     \textsf{ArcGIS} & 10.1 \\
+     \textsf{Bash} & 4.2.24 \\ 
+     \textsf{FRIL} & 2.1.5 \\
+     \textsf{GDAL} & 1.8.0 \\
+                 " & 1.9.1 \\
+                 " & 1.9.2 \\
+     \textsf{Git} & 1.7.9.5 \\
+     \textsf{GRASS} & 6.4 \\
+                  " & 7.0 \\
+     \textsf{pg\_similarity} & 0.0.19 \\
+     \textsf{PostGIS} & 1.5.3 \\
+                    " & 2.0.1 \\
+     \textsf{PostgreSQL} & 8.4.14 \\
+                      "  & 9.2.1 \\
+     \textsf{Python} & 2.6 \\
+                   " & 2.7.2 \\
+     \textsf{Quantum GIS} & 1.8 \\
+     \textsf{R} & 2.14 \\
+              " & 2.15 \\
+     \textsf{SQLite} & 3.7.9 \\
+  \end{tabular}
+  \label{table:software-used-versions}
+\end{table}
+
+R was used for calculations, validation, and statistics, the following packages were utilized:
+\begin{itemize}
+  \item foreign
+  \item geosphere
+  \item ggplot2
+  \item maptools
+  \item plotrix
+  \item raster
+  \item RPostgreSQL
+  \item rgdal
+  \item rgeos
+  \item sm
+  \item sp
+\end{itemize}
+
+Python was used extensively, the external libraries used included:
+\begin{itemize}
+  \item BeautifulSoup
+  \item gdal
+  \item geographiclib
+  \item geojson
+  \item geopy
+  \item grass
+  \item jellyfish
+  \item numpy
+  \item ogr
+  \item psycopg2
+  \item requests
+\end{itemize}
 
 \chapter{Figures}
 \label{sec:figures}
@@ -186,7 +283,7 @@ Where $ p $ is a constant scaling factor to adjust for the strength of common pr
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=140mm]{figures/cargo_density.png}
-  \caption[AIS Observations, Southern California Bight]{AIS observations, Southern California Bight. Nov 2010--Dec 2011. Note the ballast water exchange point lower left.}
+  \caption[AIS observations, Southern California Bight]{AIS observations, Southern California Bight. Nov 2010--Dec 2011. Note the ballast water exchange point lower left.}
   \label{fig:cal-cargo}
 \end{figure}
 
@@ -200,7 +297,7 @@ Where $ p $ is a constant scaling factor to adjust for the strength of common pr
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=160mm]{figures/cia-lanes-small-cropped.png}
-  \caption[CIA World Shipping Lanes]{"World Shipping Lanes" map produced by the Central Intelligence Agency, 1973.}
+  \caption[CIA "World Shipping Lanes"]{"World Shipping Lanes" map produced by the Central Intelligence Agency, 1973.}
   \label{fig:cia-shipping-map}
 \end{figure}
 
