@@ -1,10 +1,8 @@
 TODO
 ----
 
-- write Jano to ask him for what specifically he'd like to see. Also, any reference material on trajectory clustering he found particularly useful (send on some of the articles I've found as well).
-
-- email Ben, send my edits by Friday, ask for changes by... Monday? Tuesday? Def need it back by Wednesday to make it all happen.
-
+- write Jano to ask him for what specifically he'd like to see. Also, any reference material on trajectory clustering he found particularly useful (send on some of the articles I've found as well). EMAILED
+- email Ben, send my edits by Friday, ask for changes by... Monday? Tuesday? Def need it back by Wednesday to make it all happen. EMAILED, will send Ben a draft by this evening.
 
 Feedback
 --------
@@ -12,35 +10,22 @@ Feedback
 Jano:
  - provide more detail on what actually was done. Code, whatever, fine -- but include details. It can be in an appendix, but need to include information like cell size, processing techniques, and other details of what the heck you actually did. [Move some stuff from the methods into this appendix].
 
-
 Robert:
  "It was actually kind of fun to read, even though the writing was crummy."
   - bad writing, interesting problem.
-
-Steve: Great talk, did a good job.
 
 Ben: Talk was excellent. Need to take the things from the talk and drop them directly into the paper. Strikes, sound, ... discussion should be point by point on this stuff! GIT ER DONE
 
 Images
 ------
 
- - Image copyright:
-    + EBM diagram REDO? REMOVE
-    + time geography picture REDONE from original, credited source
-    + Nisbett's models of reality CUSTOMIZE FURTHER? ... did a little, would take lots of work to entirely recreate.
-    + ADD record-workflow.pdf as part of methods. DONE
-    
- - FIX: rotated 9fold image? either shrink it to fit or rotate it correctly. SHRUNK it, but it looks strange. keep it small, and post a URL 
-    + Have 3x3 maps right now, each with a 2:1 h:w ratio, so the total image ratio is 6:3 which is inefficient on a 4:3 page.
-    + 5.9"wx8.4"h is our 'drawable area' within a page, or 1.42 h:w ratio, not that far off of our 1.5 image ratio...SO, one trick would be to render image + caption, save out to SVG, fix up 'page' as we see fit in Inkscape, then supress the natural caption (but would still need it to show up in the Table of Images)
+ - Bivand's models of reality CUSTOMIZE FURTHER? ... did a little, would take lots of work to entirely recreate. SENT REQUEST TO USE CUSTOMIZED VERSION, Haven't heard back yet but should be OK to use with customizations.
 
-
-COPYRIGHT:
- - still need to handle copyright issues in the data, from all our sources.
+Copyright
+---------
+ - still need to handle copyright issues in the data, from all our sources. Some of the TOS conflict with my intended use, particularly an issue when it comes to redistribution; they aren't exactly Wikipedia on this front.
  - RAW AIS records are probably OK, even though the providers make a claim on the data... dig into this a little.
- - Ship ATTRIBUTES need some thinking about... how do we attribute effectively?
-  
-
+ - Ship ATTRIBUTES need some thinking about... how do we give attribution effectively?
 
 Uncertainty
 -----------
@@ -48,7 +33,34 @@ Uncertainty
  - at a minimum, include our 'obs per area' figure to show what kind of density we have, what % of major world ports is sampled.
  - ports: of large ports in WPI, 112/155 (72.3%) had 100 or more unique vessels, and 187/357 (52.4%) of medium ports, we have AIS for much, but not all of the important near shore areas.
 
- - Finish running Moran's I calculations on data layers to at least report that.
  - 
-
 mention the difficiencies of some areas (why are we routing some data through land masses?)
+
+
+
+DONE
+----
+
+
+LATEX:
+ - PREVENT TABLE C.2 from being double spaced, takes up too much space and overflows page... DONE
+
+ - FIX: rotated 9fold image? either shrink it to fit or rotate it correctly. SHRUNK it, but it looks strange. keep it small, and post a URL
+    + Have 3x3 maps right now, each with a 2:1 h:w ratio, so the total image ratio is 6:3 which is inefficient on a 4:3 page.
+    + 5.9"wx8.4"h is our 'drawable area' within a page, or 1.42 h:w ratio, not that far off of our 1.5 image ratio...SO, one trick would be to render image + caption, save out to SVG, fix up 'page' as we see fit in Inkscape, then supress the natural caption (but would still need it to show up in the Table of Images)
+    + DONE, reshaped to map
+
+ - Finish running Moran's I calculations on data layers to at least report that. DONE
+
+
+
+
+
+gridding speed
+--------------
+
+30 cores, 0.05 deg cells: 0m32.426s
+30 cores, 0.10 deg cells: 0m9.458s
+30 cores, 1 deg cells: 0.384s
+
+gdal_grid -ot CInt32 -txe -180 180 -tye -90 90 -outsize 7200 3600 -a count -l points_201010 points_201010.shp points_201010.tif --config GDAL_NUM_THREADS 30 --debug ON
