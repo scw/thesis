@@ -4,6 +4,35 @@
 
 % What really matters from what we've done?
 
+% XXX XXX XXX
+% XXX XXX OUR VESSEL RESULTS -- how many ships we got in the different classes, and the number of vessels per class.
+% overview of summary statistics of data
+\begin{table}[htbp]
+  \caption[Summary of analyzed ship data]{Summary of analyzed ship data}
+  \begin{tabular}{rrrrrr} %{\centering\arraybackslash}p{2cm}>{\centering\arraybackslash}p{5cm}>{\centering\arraybackslash}p{9cm}}
+    \hline
+    \small{Type} & \small{Ships \textit{(AIS)}} & \small{Ships \textit{(VOS)}} & \small{fleet size} & \small{coverage} (\%) & \small{observations} (M) \\
+    \hline
+    Cargo & 25214 & 5838 & 33392\textsuperscript{1} & 75.6 & 665.45 \\
+    Tanker & 9758 & 2375 & 14068\textsuperscript{1} & 69.4 & 264.42 \\
+    Passenger & 4007 & 777 & 6370\textsuperscript{1} & 62.9 & 142.16 \\
+    Support & 9954 & 735 & 25234\textsuperscript{1} & 39.4 & 298.02 \\
+    High-speed & 404 & 81 & 1178 & 34.3 & 2.52 \\
+    Fishing & 11186 & 349 & 51200\textsuperscript{3} & 21.8 & 6.87 \\
+    Pleasure & 20727 & 661 & 800,000\textsuperscript{2} & 2.59 & 267.48 \\
+    Other & 9507 & 1400 & -- & -- & 4.75 \\
+    Authority & 656 & 55 & -- & -- & 1.44 \\
+  \end{tabular}
+\\
+\\
+  1. \cite{Equasis2011} 2. \cite{westwood2001global} 3. \cite{FAOfishing}.
+  \label{table:ships-by-type}
+\end{table}
+% TODO: high-speed craft from ISL? Missing original ref
+% NOTE: the FAO estimates the _full_ fishing fleet size at 4 million vessels, the size clearly has an important effect.
+% see: fleet-size.txt for details on this table.
+
+
 \section{Record Linkage}
 
 Record linkage matched 30-50\% of each record source pair (Table \ref{table:ships-record-linkage-results}), and additional validation boosted this even further. That authoritative data are inconsistent points toward needing better unified and public identifiers than are currently exist.
@@ -39,27 +68,27 @@ The land-sea mask developed (Section \ref{sec:land-sea-mask}) was compared again
 
 % XXX: how did we improve data quality by using geographic filtering? what does that tell us, and why does it matter?
 
-\section{Ship results}
+\section{Ship Results}
 
 \subsection{Speed}
-\begin{figure}[htbp]
+\begin{figure}
   \centering
   \includegraphics[width=160mm]{figures/speed-boxplot.pdf}
   \caption[Validated ship speeds by class]{Boxplot of validated ship speeds.}
   \label{fig:vessel-speed-boxplot} % XXX Oliver: and? in theory I shouldn't have to read that part of the paper.
 \end{figure}
 
-Ship speed is an important predictor for a variety of questions, but is challenging to represent spatially, as it is sensitive to the observation frequency in a particular location, along with accurate distance and time measurements. To get a general sense of ship speed, the speed distribution of each vessel class was examined, both through simple boxplots (Figure \ref{fig:vessel-speed-boxplot}), and through a more nuanced kernel density estimation (Figure \ref{fig:vessel-speed-density}). The density estimation shows that for many classes, distinct speed patterns are clearly visible. For example, support vessels, which include tugs and barges move much more slowly than high-speed transport vessels. Other classes are less distinct in speed signature: cargo and tanker vessels have surprisingly similar average speeds, though by breaking this down spatially (Figure \ref{fig:speed-ship-map}), we can see a more nuanced story.
-
 % graphs of SHIP SPEED by type, either using kernel estimation or simple histograms depending on the clarity of the data.
-\begin{figure}[htbp]
+\begin{figure}[t]
   \centering
   \includegraphics[width=150mm]{figures/speed-comparison-qqplot.pdf}
   \caption[Validated ship speeds by class, kernel density estimation]{Distribution of validated ship movement speeds, computed using kernel density comparisons, as described in \citep{bowman1997applied}.}
   \label{fig:vessel-speed-density}
 \end{figure}
 
-\begin{figure}[ht]
+Ship speed is an important predictor for a variety of questions, but is challenging to represent spatially, as it is sensitive to the observation frequency in a particular location, along with accurate distance and time measurements. To get a general sense of ship speed, the speed distribution of each vessel class was examined, both through simple boxplots (Figure \ref{fig:vessel-speed-boxplot}), and through a more nuanced kernel density estimation (Figure \ref{fig:vessel-speed-density}). The density estimation shows that for many classes, distinct speed patterns are clearly visible. For example, support vessels, which include tugs and barges move much more slowly than high-speed transport vessels. Other classes are less distinct in speed signature: cargo and tanker vessels have surprisingly similar average speeds, though by breaking this down spatially (Figure \ref{fig:speed-ship-map}), we can see a more nuanced story.
+% XXX get these pages compressed down by resizing and rearranging the images.
+\begin{figure}
   \centerline{\includegraphics[width=160mm]{figures/speed_map_labeled.pdf}}
   \caption[Average ship speeds, North America and Europe]{Average ship speed examples. Scale shows 10-20 Kts/hr range for all vessels. Of note is the large difference in speeds between the opposite shores of North America.}
   \label{fig:speed-ship-map}
