@@ -2,7 +2,11 @@ TODO
 ----
 
 - write Jano to ask him for what specifically he'd like to see. Also, any reference material on trajectory clustering he found particularly useful (send on some of the articles I've found as well). EMAILED
-- email Ben, send my edits by Friday, ask for changes by... Monday? Tuesday? Def need it back by Wednesday to make it all happen. EMAILED, will send Ben a draft by this evening.
+- email Ben, send my edits by Friday, ask for changes by... Monday? Tuesday? Def need it back by Wednesday to make it all happen. EMAILED, will send Ben a draft by this evening. CAN'T GET TO IT, TOO BUSY THIS WEEK, BUMMER!
+
+ - make the networks diagram showing diff transportation networks.
+ - update the 'AIS' picture I made to be... more useful. include attributes, other things to get the information density up on this picture.
+
 
 Feedback
 --------
@@ -18,8 +22,7 @@ Ben: Talk was excellent. Need to take the things from the talk and drop them dir
 
 Images
 ------
-
- - Bivand's models of reality CUSTOMIZE FURTHER? ... did a little, would take lots of work to entirely recreate. SENT REQUEST TO USE CUSTOMIZED VERSION, Haven't heard back yet but should be OK to use with customizations.
+ - Bivand's models of reality CUSTOMIZE FURTHER? ... did a little, would take lots of work to entirely recreate. RESPONDED, he in turn borrowed it from another publication (Borroughs, 1996). Included both in the citation line, should be good enough as is to include.
 
 Copyright
 ---------
@@ -33,14 +36,10 @@ Uncertainty
  - at a minimum, include our 'obs per area' figure to show what kind of density we have, what % of major world ports is sampled.
  - ports: of large ports in WPI, 112/155 (72.3%) had 100 or more unique vessels, and 187/357 (52.4%) of medium ports, we have AIS for much, but not all of the important near shore areas.
 
- - 
-mention the difficiencies of some areas (why are we routing some data through land masses?)
-
-
+ - mention the difficiencies of some areas (why are we routing some data through land masses?)
 
 DONE
 ----
-
 
 LATEX:
  - PREVENT TABLE C.2 from being double spaced, takes up too much space and overflows page... DONE
@@ -51,10 +50,6 @@ LATEX:
     + DONE, reshaped to map
 
  - Finish running Moran's I calculations on data layers to at least report that. DONE
-
-
-
-
 
 gridding speed
 --------------
