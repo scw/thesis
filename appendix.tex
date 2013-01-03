@@ -1,6 +1,3 @@
-%\appendix{}
-%\gdef\thesection{Appendix \Alph{section}}
-
 \chapter{Method Details}
 
 \section{Record Linkage}
@@ -39,13 +36,12 @@ Where $ p $ is a constant scaling factor to adjust for the strength of common pr
 
 
 \section{Observation Filtering}
-% XXX XXX XXX oliver: Cool, power-law, but how exactly do you use this to filter?  Is there more than just screening by the theoretical maximum?
-% XXX just cut these? move to appendix?
+% XXX oliver: Cool, power-law, but how exactly do you use this to filter?  Is there more than just screening by the theoretical maximum?
 As in many large datasets, the distribution of observations per ship follows an approximate power-law distribution. Using the raw number of observations received in our 15 month window provides a simple filter. The peak in the kernel density estimation (Figure \ref{fig:obs-per-vessel-log}) is seen around $10^4$ observations, with a clear drop-off after $10^5$, which is consistent with the theoretical maximum (one observation in every sample) of about $6.8 \times 10^5$.
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=80mm]{figures/obs-per-vessel-log.pdf}
-  \caption[Observations per vessel]{Observations per vessel, log scaled.}
+  \includegraphics[width=120mm]{figures/obs-per-vessel-log-qplot.pdf}
+  \caption[Observations per vessel]{Observations per vessel, kernel density estimation.}
   \label{fig:obs-per-vessel-log}
 \end{figure}
 
@@ -67,7 +63,7 @@ Each vessel track was rasterized to both an 90 arcsecond grid (\textasciitilde{}
 
 % XXX built spatial indexes and reordered the data on disk to match for performance.
 
-
+% Store the raw observations in a spatial database (PostGIS), use parallelized code to quickly aggregate the results.
 
 \chapter{Tables}
 
