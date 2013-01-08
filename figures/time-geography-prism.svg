@@ -160,7 +160,7 @@
        sodipodi:nodetypes="cccc" />
     <text
        xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;font-family:Myriad Web Pro;-inkscape-font-specification:Myriad Web Pro"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;font-family:Myriad Pro;-inkscape-font-specification:Myriad Pro"
        x="-284.22375"
        y="83.049667"
        id="text4315"
@@ -170,10 +170,10 @@
          id="tspan4317"
          x="-284.22375"
          y="83.049667"
-         style="font-size:21.99999991px;-inkscape-font-specification:Myriad Web Pro;font-family:Myriad Web Pro;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">Time</tspan></text>
+         style="font-size:21.99999990999999966px;-inkscape-font-specification:Myriad Pro;font-family:Myriad Pro;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">Time</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Delicious;-inkscape-font-specification:Delicious Medium"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Myriad Pro;-inkscape-font-specification:Myriad Pro"
        x="98.994949"
        y="153.32642"
        id="text4319"
@@ -182,12 +182,12 @@
          id="tspan4321"
          x="98.994949"
          y="153.32642"
-         style="font-size:20px;font-style:italic;-inkscape-font-specification:Myriad Web Pro Italic;font-family:Myriad Web Pro;font-weight:normal;font-stretch:normal;font-variant:normal">t<tspan
-   style="font-size:16px;font-style:italic;baseline-shift:sub;-inkscape-font-specification:Myriad Web Pro Italic;font-family:Myriad Web Pro;font-weight:normal;font-stretch:normal;font-variant:normal"
+         style="font-size:20px;font-style:normal;-inkscape-font-specification:Myriad Pro;font-family:Myriad Pro;font-weight:normal;font-stretch:normal;font-variant:normal">t<tspan
+   style="font-size:16px;font-style:normal;baseline-shift:sub;-inkscape-font-specification:Myriad Pro;font-family:Myriad Pro;font-weight:normal;font-stretch:normal;font-variant:normal"
    id="tspan4323">j</tspan></tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Delicious;-inkscape-font-specification:Delicious Medium"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Myriad Pro;-inkscape-font-specification:Myriad Pro"
        x="98.038803"
        y="362.67429"
        id="text4319-2"
@@ -196,8 +196,8 @@
          id="tspan4321-5"
          x="98.038803"
          y="362.67429"
-         style="font-size:20px;font-style:italic;-inkscape-font-specification:Myriad Web Pro Italic;font-family:Myriad Web Pro;font-weight:normal;font-stretch:normal;font-variant:normal">t<tspan
-   style="font-size:65.00091553000000033%;baseline-shift:sub;-inkscape-font-specification:Myriad Web Pro Italic;font-family:Myriad Web Pro;font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal"
+         style="font-size:20px;font-style:normal;-inkscape-font-specification:Myriad Pro;font-family:Myriad Pro;font-weight:normal;font-stretch:normal;font-variant:normal">t<tspan
+   style="font-size:65.00091553000000033%;baseline-shift:sub;-inkscape-font-specification:Myriad Pro;font-family:Myriad Pro;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
    id="tspan4349">i</tspan></tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
@@ -254,7 +254,7 @@
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Myriad Web Pro;-inkscape-font-specification:Myriad Web Pro"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Myriad Pro;-inkscape-font-specification:Myriad Pro"
        x="433.71429"
        y="237.50505"
        id="text4470"
@@ -263,15 +263,15 @@
          id="tspan4472"
          x="433.71429"
          y="237.50505"
-         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Myriad Web Pro;-inkscape-font-specification:Myriad Web Pro">Potential</tspan><tspan
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Myriad Pro;-inkscape-font-specification:Myriad Pro">Potential</tspan><tspan
          sodipodi:role="line"
          x="433.71429"
          y="260.00507"
          id="tspan4474"
-         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Myriad Web Pro;-inkscape-font-specification:Myriad Web Pro">Path Space</tspan></text>
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Myriad Pro;-inkscape-font-specification:Myriad Pro">Path Space</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Myriad Web Pro;-inkscape-font-specification:Myriad Web Pro"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Myriad Pro;-inkscape-font-specification:Myriad Pro"
        x="411.74942"
        y="463.50845"
        id="text4470-8"
@@ -280,15 +280,15 @@
          id="tspan4472-9"
          x="411.74942"
          y="463.50845"
-         style="font-size:18px;-inkscape-font-specification:Myriad Web Pro;font-family:Myriad Web Pro;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">Potential</tspan><tspan
+         style="font-size:18px;-inkscape-font-specification:Myriad Pro;font-family:Myriad Pro;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">Potential</tspan><tspan
          sodipodi:role="line"
          x="411.74942"
          y="483.50845"
          id="tspan4474-6"
-         style="font-size:18px;-inkscape-font-specification:Myriad Web Pro;font-family:Myriad Web Pro;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">Path Area</tspan></text>
+         style="font-size:18px;-inkscape-font-specification:Myriad Pro;font-family:Myriad Pro;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">Path Area</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Myriad Web Pro;-inkscape-font-specification:Myriad Web Pro"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Myriad Pro;-inkscape-font-specification:Myriad Pro"
        x="562"
        y="422.64789"
        id="text4500"
@@ -297,12 +297,12 @@
          id="tspan4502"
          x="562"
          y="422.64789"
-         style="font-size:18px;-inkscape-font-specification:Myriad Web Pro;font-family:Myriad Web Pro;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">Geographic</tspan><tspan
+         style="font-size:18px;-inkscape-font-specification:Myriad Pro;font-family:Myriad Pro;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">Geographic</tspan><tspan
          sodipodi:role="line"
          x="562"
          y="442.64789"
          id="tspan4504"
-         style="font-size:18px;-inkscape-font-specification:Myriad Web Pro;font-family:Myriad Web Pro;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">Space</tspan></text>
+         style="font-size:18px;-inkscape-font-specification:Myriad Pro;font-family:Myriad Pro;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">Space</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:1,2;stroke-dashoffset:0"
        d="m 388.90873,147.2655 -272.74119,2.02031"
