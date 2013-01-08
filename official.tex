@@ -29,6 +29,8 @@
 \usepackage{amsmath}
 \usepackage{array}
 
+\usepackage{inconsolata}
+
 % short space lists
 \usepackage{enumitem}
 \setlist{nolistsep}
@@ -38,7 +40,7 @@
 
 \usepackage[sc,osf]{mathpazo}
 \usepackage[T1]{fontenc}
-\usepackage{inconsolata}
+%\usepackage{inconsolata}
 
 % use fancy syntax highlighting provided by an interface to pygments
 \usepackage{minted}
@@ -66,14 +68,6 @@
 }
 
 \renewcommand{\theFancyVerbLine}{\sffamily\textcolor[rgb]{0.5,0.5,0.5}{\scriptsize\arabic{FancyVerbLine}}}
-
-% fancy matrix environment which allows vertical bars
-\makeatletter
-\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
-  \hskip -\arraycolsep
-  \let\@ifnextchar\new@ifnextchar
-  \array{#1}}
-\makeatother
 
 \begin{document}
   \title{\Huge{Assessing ship movements using volunteered geographic information}}

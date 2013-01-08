@@ -14,12 +14,11 @@ The Jaro-Winkler formula is defined in two steps. First, The Jaro distance, $d_j
     \frac{1}{3}\left(\frac{m}{|s_1|} + \frac{m}{|s_2|} + \frac{m-t}{m}\right) & \text{otherwise} \end{array} \right.
 \end{equation}
 
-Where:
-
-m = number of matching patterns
-t = number of transposed characters
-|s1| = length of first string
-|s2| = length of second string
+Where:\\
+m = number of matching patterns \\
+t = number of transposed characters \\
+|s1| = length of first string \\
+|s2| = length of second string \\
 
 Two characters are considered matching when they are no further apart than:
 \begin{equation}
@@ -49,21 +48,10 @@ As in many large datasets, the distribution of observations per ship follows an 
 \label{sec:movement-modeling-appendix}
 
 % XXX From Jano: provide more detail on what actually was done. Code, whatever, fine -- but include details. It can be in an appendix, but need to include information like cell size, processing techniques, and other details of what the heck you actually did. [Move some stuff from the methods into this appendix].
-% XXX copy and paste job, include details here.... tools used? DETAILED APPROACH.
 
-Each vessel track was rasterized to both an 90 arcsecond grid (\textasciitilde{}5.5km at the equator) and an equal area grid in the Hobo Dyer projection (Figure \ref{fig:eu-cargo-density}). The latter case assures that the density function is computed on grid cells representing the same area for each cell, unlike the geographic grid where area varies by latitude. A vessel is counted only once for each cell it passes through, as the focus here on overall movement patterns, and this criteria helps de-emphasize vessels with limited movement. Each raster vessel track was combined using simple map algebra to produce density maps for both the AIS and VOS data, for each of our vessel classes. % XXX Oliver: A passing cargo ship is comparable to a ferry crisscrossing the same spot continuously every day?  Not that you should do this, but somebody might wonder.
+After storing the raw observations in a spatial database (PostGIS), I used parallelized code to quickly aggregate the large volume of observations. Taking advantage of the database, observations were ordered on disk based on vessel, and spatial indices were created. This allows us to quickly filter the data both based on attributes and spatial traits.
 
-% XXX gdal_rasterize did the rasterization step
-
-% gdal_add, custom python code combined the results
-
-% paralellized in Python.
-
-% Bresenham's line algorithm used for rasterizing the tracks. Only counted a ship moving through a single cell once to get movement patterns v. dockage
-
-% XXX built spatial indexes and reordered the data on disk to match for performance.
-
-% Store the raw observations in a spatial database (PostGIS), use parallelized code to quickly aggregate the results.
+To rasterize vessel tracks, \textsf{gdal\_rasterize} from \textsf{GDAL} was used to convert between vector and raster representations.  Bresenham's line algorithm~\cite{bresenham1965} determined the output cells considered used within each track. I only counted a ship moving through a single cell a single time to capture overall movement patterns, but future work should also incorporate total trips to capture movement patterns such as regular short distance trips passenger ferries engage in. When combining the data, a parallelized version of Matthew Perry's \textsf{gdal\_add.py} script was used to quickly combine thousands of raster ship tracks.
 
 \chapter{Tables}
 
@@ -73,11 +61,11 @@ Each vessel track was rasterized to both an 90 arcsecond grid (\textasciitilde{}
     \hline
     Attribute & Accuracy \\
     \hline
-    Location (fixed from GPS signal) & $\simeq$10 meter accuracy) \\
-    Timestamp (on broadcast) & $\simeq$100 ms \textit{transmission \& processing}\\
+    Location (fixed from GPS signal) & $\simeq$10 meter \\
+    Timestamp (on broadcast) & $\pm100$ ms \textit{transmission \& processing}\\
     Name \\
     Call Sign \\
-    Maritime Mobile Service Identity (MMSI) \\
+    Maritime Mobile Service Identity \\
     Heading \\
     Speed \\
     Destination & \textit{often incorrect}
@@ -90,6 +78,7 @@ Each vessel track was rasterized to both an 90 arcsecond grid (\textasciitilde{}
 \begin{table}[htbp]
   \caption[Ship record linkage methods]{Ship record linkage methods used.}
   \ssp
+  \renewcommand{\arraystretch}{1.4}
   \begin{tabular}{rrrlrr}
     \hline
     Source $A$ & Source $B$ & acceptance level & column & distance metric & weight \\
@@ -97,24 +86,30 @@ Each vessel track was rasterized to both an 90 arcsecond grid (\textasciitilde{}
      DS & ITU & 92 & callsign & Jaro-Winkler\textsuperscript{1} & 50 \\
         &     &    & MMSI & equal & 40 \\
         &     &    & name & Jaro-Winkler & 40 \\
+    \hline
      DS &  VT & 85 & callsign & Jaro-Winkler & 60 \\
         &     &    & IMO & Jaro-Winkler & 20 \\
         &     &    & name & Jaro-Winkler & 20 \\
+    \hline
     FCC & ITU & 85 & callsign & Jaro-Winkler & 95 \\
         &     &    & name & Jaro-Winkler & 5 \\
+    \hline
     FCC &  VT & 95 & callsign & Jaro-Winkler & 66 \\
         &     &    & name & Jaro-Winkler & 5 \\
         &     &    & MMSI & Jaro-Winkler & 24 \\
         &     &    & length & equal & 5 \\
+    \hline
      VT & ITU & 80 & callsign & Jaro-Winkler & 20 \\
         &     &    & MMSI & Edit Distance & 30 \\
         &     &    & name & Jaro-Winkler & 10 \\
         &     &    & IMO & Jaro-Winkler & 40 \\
+    \hline
      DS & FCC & 95 & callsign & equal & 99 \\
         &     &    & name & Jaro-Winkler& 1 \\
   \end{tabular}
   \\
-  \textsuperscript{1} Jaro-Winkler distance \citep{winkler1990string}: length $l = 4$ and scaling factor $p = 0.1$
+  \\
+  1. Jaro-Winkler distance \citep{winkler1990string}: length $l = 4$ and scaling factor $p = 0.1$
   \label{table:ships-record-linkage-methods}
 \end{table}
 
@@ -192,13 +187,14 @@ Each vessel track was rasterized to both an 90 arcsecond grid (\textasciitilde{}
 % insert AIS into DB, formalize
 % download & parse ship databases
 
-This work would not have been possible without extensive contributions from others in the form of software, both commercial and open source. An overview of the software used in the project is provided, and the code produced is available at https://github.com/scw/ais-kml-parser. 
+This work would not have been possible without extensive contributions from others in the form of software, both commercial and open source. An overview of the software used in the project is provided, and code produced is available at \url{https://github.com/scw/thesis}. 
 
-To store the raw observations, \textsf{SQLite} was used for rapid development, but the bulk of the observations were stored in the object-relational database \textsf{PostgreSQL}, where the majority of the analysis was carried out using either native SQL or with the spatial extension \textsf{PostGIS}. The \textsf{GDAL} library was used extensively for transforming both raster and vector data. Record linkage was performed using \textsf{FRIL}, with some record linkage integrated into the database using \textsf{pg\_similarity}, and in \textsf{Python} using the \textsf{jellyfish} module. Integration and data processing used \textsf{Python}, which combines a wide base of environments within a single language. \textsf{R} was used to perform statistical analyses and summarize results. \textsf{GRASS} was used to compute model outputs and spatial statistics, and maps were produced in \textsf{ArcGIS} and \textsf{Quantum GIS}.
+To store the raw observations, \textsf{SQLite} was used for rapid development, but the bulk of the observations were stored in the object-relational database \textsf{PostgreSQL}, where analysis was carried out using either native SQL or with the spatial extension \textsf{PostGIS}. The \textsf{GDAL} library was used extensively for transforming both raster and vector data, and aggregation. Record linkage was performed using \textsf{FRIL}, with some record linkage integrated into the database using \textsf{pg\_similarity}, and in \textsf{Python} using the \textsf{jellyfish} module. Integration and data processing used \textsf{Python}, which combines a wide base of environments within a single language. \textsf{R} was used to perform statistical analyses and summarize results. \textsf{GRASS} was used to compute model outputs and spatial statistics, and maps were produced in \textsf{ArcGIS} and \textsf{Quantum GIS}.
 
 \begin{table}[htbp]
-  \caption[Software used]{Software used, version details}
+  \caption[Software used]{Software used. A complete listing of software packages used in the analysis.}
   \ssp
+  \centering
   \begin{tabular}{rr}
     \hline
     Software package & version \\
@@ -227,54 +223,54 @@ To store the raw observations, \textsf{SQLite} was used for rapid development, b
   \label{table:software-used-versions}
 \end{table}
 
-R was used for calculations, validation, and statistics, the following packages were utilized:
-\begin{itemize}
-  \item foreign
-  \item geosphere
-  \item ggplot2
-  \item maptools
-  \item plotrix
-  \item raster
-  \item RPostgreSQL
-  \item rgdal
-  \item rgeos
-  \item sm
-  \item sp
-\end{itemize}
-
-Python was used extensively, the external libraries used included:
-\begin{itemize}
-  \item BeautifulSoup
-  \item gdal
-  \item geographiclib
-  \item geojson
-  \item geopy
-  \item grass
-  \item jellyfish
-  \item numpy
-  \item ogr
-  \item psycopg2
-  \item requests
-\end{itemize}
+\begin{table}
+  \caption[Libraries used]{External libraries used. Python was used extensively throughout the project, and R was used for calculations, validation, and statistics. The following external libraries were used in each environment.}
+  \centering
+  \ssp
+  \begin{tabular}{ll}
+    \hline
+    R packages & Python libraries \\
+    \hline
+    foreign & BeautifulSoup\\
+    geosphere & gdal \\
+    ggplot2 & geographiclib \\
+    maptools & geojson \\
+    plotrix & geopy \\
+    raster & grass\\
+    RPostgreSQL & jellyfish \\
+    rgdal & numpy \\
+    rgeos & ogr \\
+    sm & psycopg2 \\
+    sp & requests \\
+  \end{tabular}
+\end{table}
 
 \chapter{Figures}
 \label{sec:figures}
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=160mm]{figures/ais-nov-2011.pdf}
+  \hspace*{-.3in}
+  \includegraphics[width=140mm]{figures/ais-nov-2011.pdf}
   \caption[AIS observations, November 2011]{Raw AIS observations, November 2011. Note the observations located in the Hoggar Mountains in Algeria.}
   \label{fig:ais-obs-nov-2011}
 \end{figure}
 
-% show our image of invalid 'on land' ships in the harbor of long beach?
-\begin{figure}[htbp]
+\begin{figure}
   \centering
-  \includegraphics[width=140mm]{figures/example-long-beach-harbor-validation.png}
-  \caption[Long beach harbor, validation example]{Long Beach Harbor, California. Points shown here in purple are 'on land', but most of these on-land observations are actually parts of the harbor.} % XXX Oliver: a little context here?
-  \label{fig:longbeach-validation}
+  \hspace*{-.3in}
+  \includegraphics[width=120mm]{figures/ais-and-ports-cea.pdf}
+  \caption[AIS coverage]{Approximate AIS coverage (green), global ports (red).}
+  \label{fig:ais-coverage}
 \end{figure}
 
+% show our image of invalid 'on land' ships in the harbor of long beach?
+\begin{figure}
+  \centering
+  \includegraphics[width=120mm]{figures/example-long-beach-harbor-validation.png}
+  \caption[Long Beach harbor, validation]{Long Beach Harbor, California. Points shown in purple are 'on land', but most of these observations are actually within the harbor.} % XXX Oliver: a little context here?
+  \label{fig:longbeach-validation}
+\end{figure}
 
 \begin{figure}[htbp]
   \centering
@@ -285,14 +281,8 @@ Python was used extensively, the external libraries used included:
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=160mm]{figures/ais-and-ports-cea.pdf}
-  \caption[AIS coverage]{Approximate AIS coverage (green), global ports (red).}
-  \label{fig:ais-coverage}
-\end{figure}
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=160mm]{figures/cia-lanes-small-cropped.png}
+  \hspace*{-.15in}
+  \includegraphics[width=150mm]{figures/cia-lanes-small-cropped.png}
   \caption[CIA "World Shipping Lanes"]{"World Shipping Lanes" map produced by the Central Intelligence Agency, 1973.}
   \label{fig:cia-shipping-map}
 \end{figure}
