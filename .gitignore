@@ -25,3 +25,5 @@
 *.fdb_latexmk
 backup/
 example/
+drafts/
+submission/
